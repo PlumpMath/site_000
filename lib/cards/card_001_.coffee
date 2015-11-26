@@ -12,32 +12,24 @@ card = rr
         in_side = 140
         out_origin = mm M, in_origin
         out_side = in_side * M[0][0]
-        f_zero_x = .5 * scale_x
-        f_zero_y = .5 * scale_y
-        std_dev = .9 * scale_x
         oo = {x: out_origin[0], y: out_origin[1]}
-
-
-
         {x, y} = oo
+
         svg
             width: '100%'
             height: '100%'
-
             rect
                 x: out_origin[0]
                 y: out_origin[1]
                 width: out_side
                 height: out_side
                 fill: 'hsl(33, 99%, 49%)'
-            # {t_x, t_y} = {t_x: x + (out_side / 5), t_y: y + (out_side / 1.8)}
             t_x = x + (out_side / 5)
             t_y = y + (out_side / 1.8)
             text
                 x: t_x
                 y: t_y
                 fontSize: 20 * scale_x
-                # 'עברית'
                 @props.text_content
 
 

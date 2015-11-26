@@ -1,6 +1,8 @@
 {c, React, Imm, rr, shortid, keys, assign, math, _, Bluebird, gl_mat, dispatcher, flux, mm, EventEmitter} = require('../__boiler__plate__000__.coffee')()
-c "React", React
+
 {p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse} = React.DOM
+
+c 'filter', filter
 
 
 exhibit = rr
@@ -9,8 +11,8 @@ exhibit = rr
         M = @props.transform_matrix
         scale_x = M[0][0]
         scale_y = M[1][1]
-        in_origin = [-70, 70, 1]
-        in_side = 140
+        in_origin = [-98, 98, 1]
+        in_side = 196
         out_origin = mm M, in_origin
         out_side = in_side * M[0][0]
         f_zero_x = .5 * scale_x
@@ -18,26 +20,72 @@ exhibit = rr
         std_dev = .9 * scale_x
         oo = {x: out_origin[0], y: out_origin[1]}
 
+        grad_000 = shortid()
+
 
 
         {x, y} = oo
         svg
             width: '100%'
             height: '100%'
+            defs
+                filter
+                    id: 'f_zero'
+                    feGaussianBlur
+                        in: "SourceGraphic"
+                        result: "blurOut"
+                        stdDeviation: std_dev
+                    feOffset
+                        in: "blurOut"
+                        result: "dropBlur"
+                        dx: f_zero_x
+                        dy: f_zero_y
+                linearGradient
+                    id: grad_000
+                    # x1: '20%'
+                    # y1: '30%'
+                    # x2: '40%'
+                    # y2: '80%'
+                    stop
+                        offset: '0%'
+                        stopColor: 'hsl(33, 44%, 77%)'
+                    stop
+                        offset: '92%'
+                        stopColor: 'hsl(270, 66%, 78%)'
+                    # stop
+                    #     offset:"98%"
+                    #     stopColor:"orange"
+
             rect
-                x: out_origin[0]
-                y: out_origin[1]
+                x: x
+                y: y
                 width: out_side
                 height: out_side
-                fill: 'hsl(250, 99%, 49%)'
-            t_x = x + (out_side / 6)
-            t_y = y + (out_side / 1.8)
+                # fill: 'hsl(250, 99%, 49%)'
+                fill: "url(##{grad_000})"
+                filter: 'url(#f_zero)'
+
+
             text
-                x: t_x
-                y: t_y
-                fontSize: 20 * scale_x
-                # 'עברית'
-                'deep blue'
+                x: x + (scale_x * 1.4)
+                y: y + (scale_x * 4)
+                # fontSize: scale_x * 3.3
+                textLength: out_side - (scale_x * 5)
+                lengthAdjust: 'spacingAndGlyphs'
+                # another thing waiting for React to support 100% SVG attributes
+                "So, this represents an experiment in typesetting with just 
+pure SVG. Checking now how no word wrap but lengthAdjust.  How will it do this and that and the other thing"
+            text
+                x: x + (scale_x * 1.4)
+                y: y + (scale_x * 12)
+                fontSize: scale_x * 3.3
+                "Some another line and some more content"
+            text
+                x: x + (scale_x * 1.4)
+                y: y + (scale_x * 20)
+                fontSize: scale_x * 3.3
+                "Another line."
+
 
 
 

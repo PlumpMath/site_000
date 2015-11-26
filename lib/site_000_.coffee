@@ -2,7 +2,7 @@
 document.getElementsByTagName('body')[0].style.overflow = 'hidden'
 imp_root = document.getElementById('__react__root__')
 imp_root.style.overflow = 'hidden'
-
+require('./__monkey__patch__.coffee')
 {c, React, Imm, rr, shortid, assign, keys, math, _, React_DOM, mm, gl_mat, Bluebird, flux, dispatcher, EventEmitter} = require('./__boiler__plate__000__.coffee')()
 # note Todo modularise boilerplates for better organisation and 
 # underssntanding of what can be removed
@@ -15,6 +15,8 @@ imp_root.style.overflow = 'hidden'
 card_000 = require('./cards/card_000_.coffee')()
 deep_blue_000 = require('./cards/deep_blue_000_.coffee')()
 deck_000 = require('./decks/deck_000_.coffee')()
+
+exhibit_000 = require('./exhibits/exhibit_000_.coffee')()
 
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
@@ -77,7 +79,8 @@ main = rr
                 # card_000 payload()
                 #sketch_001 payload()
                 # deep_blue_000 payload()
-                deck_000 payload()
+                # deck_000 payload()
+                exhibit_000 payload()
 
 
 

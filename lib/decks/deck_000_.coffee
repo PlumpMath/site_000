@@ -10,6 +10,7 @@ card_000 = require('../cards/card_000_.coffee')()
 deep_blue_000 = require('../cards/deep_blue_000_.coffee')()
 projects_000 = require('../cards/projects_000_.coffee')()
 card_001 = require('../cards/card_001_.coffee')()
+card_002 = require('../cards/card_002_.coffee')()
 
 deck = rr
     render: ->
@@ -49,6 +50,7 @@ deck = rr
             deep_blue_000 payload_002(-40, -40)
             # card_000 payload_002(40, 40)
             card_001 payload_003(40, 40, 'card_001')
+            card_002 payload_002(40, -40)
             projects_000 payload_002(-40, 40)
 
 
