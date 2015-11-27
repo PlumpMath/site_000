@@ -17,6 +17,7 @@ deep_blue_000 = require('./cards/deep_blue_000_.coffee')()
 deck_000 = require('./decks/deck_000_.coffee')()
 
 exhibit_000 = require('./exhibits/exhibit_000_.coffee')()
+exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
@@ -80,7 +81,7 @@ main = rr
                 #sketch_001 payload()
                 # deep_blue_000 payload()
                 # deck_000 payload()
-                exhibit_000 payload()
+                exhibit_001 payload()
 
 
 
