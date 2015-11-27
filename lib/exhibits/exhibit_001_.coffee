@@ -4,7 +4,17 @@
 
 button_000 = require('../buttons/button_000_.coffee')()
 
+dragoon_store = require('../stores/dragoon_store_000_.coffee')
+
+
+
 exhibit = rr
+
+    handle_000: ->
+        dispatcher.dispatch
+            myType: 'hello type 0'
+            type: 'hello type 1'
+            some_other_property: 'another property'
 
     button_000_transform: ->
         M = @props.transform_matrix
@@ -89,7 +99,7 @@ So how much of a word wrap can we expect and how effectively will SVG handle htm
 SVG elements is like are things we are trying to figure out here. "
                     i null, "helloosnthausnteh"
                     span
-                        onMouseOver: -> c "something here. this means we can locally hyperlink via React state change"
+                        onMouseOver: @handle_000
                         ,
                         " it works just fine.
 It works exceedingly well actually"

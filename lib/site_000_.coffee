@@ -54,8 +54,12 @@ main = rr
 
     render: ->
         payload = =>
+            M = [[z, 0, (@state.view_width / 2)],[0, -z, (@state.view_height / 2)],[0, 0, 1]]
             transform_matrix: [[z, 0, (@state.view_width / 2)],[0, -z, (@state.view_height / 2)],[0, 0, 1]]
-            from_root: on
+            #TODO implement the shouldComponent update stuff as below with Immutable
+            # & remove the transform_matrix arg in favor of immM arg
+            imm_M: Imm.fromJS M
+            # from_root: on
 
         main_div = ->
             style:

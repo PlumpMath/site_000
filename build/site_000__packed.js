@@ -124,9 +124,11 @@
 	    var main_div, payload, ref2, smaller, z;
 	    payload = (function(_this) {
 	      return function() {
+	        var M;
+	        M = [[z, 0, _this.state.view_width / 2], [0, -z, _this.state.view_height / 2], [0, 0, 1]];
 	        return {
 	          transform_matrix: [[z, 0, _this.state.view_width / 2], [0, -z, _this.state.view_height / 2], [0, 0, 1]],
-	          from_root: true
+	          imm_M: Imm.fromJS(M)
 	        };
 	      };
 	    })(this);
@@ -48112,7 +48114,7 @@
 /* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, dragoon_store, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
 
 	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
 
@@ -48120,7 +48122,16 @@
 
 	button_000 = __webpack_require__(196)();
 
+	dragoon_store = __webpack_require__(198);
+
 	exhibit = rr({
+	  handle_000: function() {
+	    return dispatcher.dispatch({
+	      myType: 'hello type 0',
+	      type: 'hello type 1',
+	      some_other_property: 'another property'
+	    });
+	  },
 	  button_000_transform: function() {
 	    var M, in_transform, scale_000, scale_x, translate_x, translate_y;
 	    M = this.props.transform_matrix;
@@ -48189,9 +48200,7 @@
 	        fontSize: scale_x * 3
 	      }
 	    }, "hello, and this and that and the other thing and a all of that javzz and looking for a word wrap and that. So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside SVG elements is like are things we are trying to figure out here. ", i(null, "helloosnthausnteh"), span({
-	      onMouseOver: function() {
-	        return c("something here. this means we can locally hyperlink via React state change");
-	      }
+	      onMouseOver: this.handle_000
 	    }, " it works just fine. It works exceedingly well actually")), p({
 	      style: {
 	        fontSize: scale_x * 3
@@ -48291,6 +48300,29 @@
 	module.exports = function() {
 	  return button;
 	};
+
+
+/***/ },
+/* 197 */,
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, dragoon_store, flux, keys, math, mm, ref, rr, shortid, svg_bp;
+
+	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, flux = ref.flux, _ = ref._, c = ref.c, React = ref.React, React_DOM = ref.React_DOM, Imm = ref.Imm, Bluebird = ref.Bluebird, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, math = ref.math, mm = ref.mm, svg_bp = ref.svg_bp;
+
+	dragoon_store = assign({}, EventEmitter.prototype, {
+	  test_000: function() {
+	    return c("we're in dragoon_store in the test_000 function.");
+	  },
+	  test_001: function() {}
+	});
+
+	dragoon_store.dispatchToken = dispatcher.register(function(action) {
+	  return c('dragoon got an action', action);
+	});
+
+	module.exports = dragoon_store;
 
 
 /***/ }
