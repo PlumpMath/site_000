@@ -18,6 +18,7 @@ deck_000 = require('./decks/deck_000_.coffee')()
 
 exhibit_000 = require('./exhibits/exhibit_000_.coffee')()
 exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
+button_000 = require('./buttons/button_000_.coffee')()
 
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
@@ -82,6 +83,7 @@ main = rr
                 # deep_blue_000 payload()
                 # deck_000 payload()
                 exhibit_001 payload()
+                # button_000 payload()
 
 
 

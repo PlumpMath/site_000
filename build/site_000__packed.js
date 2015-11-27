@@ -51,7 +51,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, c, card_000, circle, clipPath, code, d, deck_000, deep_blue_000, defs, dispatcher, div, ellipse, exhibit_000, exhibit_001, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keys, li, line, linearGradient, main, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, card_000, circle, clipPath, code, d, deck_000, deep_blue_000, defs, dispatcher, div, ellipse, exhibit_000, exhibit_001, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keys, li, line, linearGradient, main, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
 
 	document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 
@@ -74,6 +74,8 @@
 	exhibit_000 = __webpack_require__(194)();
 
 	exhibit_001 = __webpack_require__(195)();
+
+	button_000 = __webpack_require__(196)();
 
 	main = rr({
 	  componentWillUnmount: function() {
@@ -48110,19 +48112,27 @@
 /* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
 
 	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
 
 	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
 
-	c('filter', filter);
-
-	c('foreignObject', foreignObject);
+	button_000 = __webpack_require__(196)();
 
 	exhibit = rr({
+	  button_000_transform: function() {
+	    var M, in_transform, scale_000, scale_x, translate_x, translate_y;
+	    M = this.props.transform_matrix;
+	    scale_x = M[0][0];
+	    scale_000 = .05;
+	    translate_x = 95;
+	    translate_y = -95;
+	    in_transform = [[scale_000, 0, translate_x], [0, scale_000, translate_y], [0, 0, 1]];
+	    return mm(M, in_transform);
+	  },
 	  render: function() {
-	    var M, f_zero_x, f_zero_y, grad_000, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, std_dev, x, y;
+	    var M, f_zero_x, f_zero_y, filter_000, grad_000, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, std_dev, x, y;
 	    M = this.props.transform_matrix;
 	    scale_x = M[0][0];
 	    scale_y = M[1][1];
@@ -48138,12 +48148,13 @@
 	      y: out_origin[1]
 	    };
 	    grad_000 = shortid();
+	    filter_000 = shortid();
 	    x = oo.x, y = oo.y;
 	    return svg({
 	      width: '100%',
 	      height: '100%'
 	    }, defs, filter({
-	      id: 'f_zero'
+	      id: filter_000
 	    }, feGaussianBlur({
 	      "in": "SourceGraphic",
 	      result: "blurOut",
@@ -48167,7 +48178,7 @@
 	      width: out_side,
 	      height: out_side,
 	      fill: "url(#" + grad_000 + ")",
-	      filter: 'url(#f_zero)'
+	      filter: "url(#" + filter_000 + ")"
 	    }), foreignObject({
 	      x: x + (scale_x * 4.5),
 	      y: y + (scale_y * .5),
@@ -48177,7 +48188,11 @@
 	      style: {
 	        fontSize: scale_x * 3
 	      }
-	    }, "hello, and this and that and the other thing and a all of that javzz and looking for a word wrap and that. So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside SVG elements is like are things we are trying to figure out here. ", i(null, "helloosnthausnteh"), span(null, " it works just fine. It works exceedingly well actually")), p({
+	    }, "hello, and this and that and the other thing and a all of that javzz and looking for a word wrap and that. So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside SVG elements is like are things we are trying to figure out here. ", i(null, "helloosnthausnteh"), span({
+	      onMouseOver: function() {
+	        return c("something here. this means we can locally hyperlink via React state change");
+	      }
+	    }, " it works just fine. It works exceedingly well actually")), p({
 	      style: {
 	        fontSize: scale_x * 3
 	      }
@@ -48186,12 +48201,95 @@
 	        textAlign: 'center',
 	        fontSize: scale_x * 3
 	      }
-	    }, "And a Heading")));
+	    }, "And a Heading"), p({
+	      style: {
+	        fontSize: scale_x * 3
+	      }
+	    }, "This is another paragraph. And it's not so bad for writing.")), button_000({
+	      transform_matrix: this.button_000_transform()
+	    }));
 	  }
 	});
 
 	module.exports = function() {
 	  return exhibit;
+	};
+
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, button, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
+
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse;
+
+	button = rr({
+	  handle_click: function() {
+	    return c("handling click");
+	  },
+	  render: function() {
+	    var M, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, x, y;
+	    M = this.props.transform_matrix;
+	    scale_x = M[0][0];
+	    scale_y = M[1][1];
+	    in_origin = [-50, 50, 1];
+	    in_side = 100;
+	    out_origin = mm(M, in_origin);
+	    c("out_origin", out_origin);
+	    out_side = in_side * scale_x;
+	    oo = {
+	      x: out_origin[0],
+	      y: out_origin[1]
+	    };
+	    x = oo.x, y = oo.y;
+	    return svg({
+	      width: '100%',
+	      height: '100%'
+	    }, defs, radialGradient({
+	      id: "restart_grad_000"
+	    }, stop({
+	      offset: "30%",
+	      stopColor: 'lightgrey'
+	    }), stop({
+	      offset: "70%",
+	      stopColor: "yellow"
+	    }), stop({
+	      offset: "95%",
+	      stopColor: '#25eb92'
+	    })), filter({
+	      id: 'f_zero'
+	    }, feGaussianBlur({
+	      "in": "SourceGraphic",
+	      result: "blurOut",
+	      stdDeviation: 20
+	    }), feOffset({
+	      "in": "blurOut",
+	      result: "dropBlur",
+	      dx: 5,
+	      dy: 3
+	    })), rect({
+	      x: x,
+	      y: y,
+	      width: out_side,
+	      height: out_side,
+	      opacity: .87,
+	      fill: 'url(#restart_grad_000)',
+	      stroke: 'blue',
+	      onContextMenu: function(e) {
+	        return e.preventDefault();
+	      },
+	      onClick: this.handle_click,
+	      onMouseLeave: this.handle_mouseleave,
+	      onMouseOver: this.handle_mouseover
+	    }));
+	  }
+	});
+
+	module.exports = function() {
+	  return button;
 	};
 
 
