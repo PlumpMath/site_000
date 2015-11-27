@@ -48032,13 +48032,15 @@
 /* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
 
 	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
 
-	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse;
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
 
 	c('filter', filter);
+
+	c('foreignObject', foreignObject);
 
 	exhibit = rr({
 	  render: function() {
@@ -48088,20 +48090,16 @@
 	      height: out_side,
 	      fill: "url(#" + grad_000 + ")",
 	      filter: 'url(#f_zero)'
-	    }), text({
-	      x: x + (scale_x * 1.4),
-	      y: y + (scale_x * 4),
-	      textLength: out_side - (scale_x * 5),
-	      lengthAdjust: 'spacingAndGlyphs'
-	    }, "So, this represents an experiment in typesetting with just pure SVG. Checking now how no word wrap but lengthAdjust.  How will it do this and that and the other thing"), text({
-	      x: x + (scale_x * 1.4),
-	      y: y + (scale_x * 12),
-	      fontSize: scale_x * 3.3
-	    }, "Some another line and some more content"), text({
-	      x: x + (scale_x * 1.4),
-	      y: y + (scale_x * 20),
-	      fontSize: scale_x * 3.3
-	    }, "Another line."));
+	    }), foreignObject({
+	      x: x + (scale_x * 4.5),
+	      y: y + (scale_y * .5),
+	      width: out_side - (scale_x * 10),
+	      height: out_side - (scale_y * 10)
+	    }, p({
+	      style: {
+	        fontSize: scale_x * 3
+	      }
+	    }, "hello, and this and that and the other thing and a all of that javzz and looking for a word wrap and that. So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside SVG elements is like are things we are trying to figure out here. ", i(null, "helloosnthausnteh"), span(null, " it works just fine. It works exceedingly well actually"))));
 	  }
 	});
 

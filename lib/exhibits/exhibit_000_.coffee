@@ -1,8 +1,9 @@
 {c, React, Imm, rr, shortid, keys, assign, math, _, Bluebird, gl_mat, dispatcher, flux, mm, EventEmitter} = require('../__boiler__plate__000__.coffee')()
 
-{p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse} = React.DOM
+{p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse, i} = React.DOM
 
 c 'filter', filter
+c 'foreignObject', foreignObject
 
 
 exhibit = rr
@@ -66,25 +67,43 @@ exhibit = rr
                 filter: 'url(#f_zero)'
 
 
-            text
-                x: x + (scale_x * 1.4)
-                y: y + (scale_x * 4)
-                # fontSize: scale_x * 3.3
-                textLength: out_side - (scale_x * 5)
-                lengthAdjust: 'spacingAndGlyphs'
-                # another thing waiting for React to support 100% SVG attributes
-                "So, this represents an experiment in typesetting with just 
-pure SVG. Checking now how no word wrap but lengthAdjust.  How will it do this and that and the other thing"
-            text
-                x: x + (scale_x * 1.4)
-                y: y + (scale_x * 12)
-                fontSize: scale_x * 3.3
-                "Some another line and some more content"
-            text
-                x: x + (scale_x * 1.4)
-                y: y + (scale_x * 20)
-                fontSize: scale_x * 3.3
-                "Another line."
+#             text
+#                 x: x + (scale_x * 1.4)
+#                 y: y + (scale_x * 4)
+#                 # fontSize: scale_x * 3.3
+#                 textLength: out_side - (scale_x * 5)
+#                 lengthAdjust: 'spacingAndGlyphs'
+#                 # another thing waiting for React to support 100% SVG attributes
+#                 "So, this represents an experiment in typesetting with just 
+# pure SVG. Checking now how no word wrap but lengthAdjust.  How will it do this and that and the other thing"
+#             text
+#                 x: x + (scale_x * 1.4)
+#                 y: y + (scale_x * 12)
+#                 fontSize: scale_x * 3.3
+#                 "Some another line and some more content"
+#             text
+#                 x: x + (scale_x * 1.4)
+#                 y: y + (scale_x * 20)
+#                 fontSize: scale_x * 3.3
+#                 "Another line."
+
+            foreignObject
+                x: x + (scale_x * 4.5)
+                y: y + (scale_y * .5)
+                width: out_side - (scale_x * 10)
+                height: out_side - (scale_y * 10)
+                p
+                    style:
+                        fontSize: scale_x * 3,
+                    "hello, and this and that and the other thing and a
+all of that javzz and looking for a word wrap and that. 
+So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside
+SVG elements is like are things we are trying to figure out here. "
+                    i null, "helloosnthausnteh"
+                    span null,
+                        " it works just fine.
+It works exceedingly well actually"
+
 
 
 
