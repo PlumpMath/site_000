@@ -14,7 +14,7 @@ ________________________________
 
 I did some R&D this summer on building better web-apps.  Hit upon the idea of doing everything with SVG instead of HTML/CSS.  The idea being that HTML/CSS is best suited to typesetting, and that using it control the graphical _space_ of a webapp is a terrible idea that should be corrected.  So will notice here that the overall GUI structure of the app is handled with SVGs, using reusable components that are scaled with composable transform matrices according to the rules of homogeneous coordinates from linear algebra.  When we want do do some serious typesetting _(*1)_ we introduce HTML elements under the SVG `foreignObject` element construct.
 
-_*1:_ Writing lengthy prose content counts as serious typesetting whereas a text label on a control (e.g. 'submit' on a button) does not; creative (e.g. poetry) text content representation would be yet another application SVG would have advantage over HTML/CSS.
+_*1:_ Prose of non-negligible length would count as 'serious typesetting', whereas a simple text label on a control (e.g. 'submit' on a button) would not.  Creative (e.g. poetry) text content representation are another story; an application within whichI think SVG would have a clear advantage over HTML/CSS.
 
 ________________________
 
