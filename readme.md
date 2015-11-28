@@ -10,7 +10,7 @@ Here as a Gist [package.json](https://gist.github.com/kulicuu/f47ab8ec7f9f1933ee
 
 ________________________________
 
-### A note on the basic architectural style used:
+### A note on the ~~architectural style~~ design pattern used:
 
 I did some R&D this summer on building better web-apps.  Hit upon the idea of doing everything with SVG instead of HTML/CSS.  The idea being that HTML/CSS is best suited to typesetting, and that using it control the graphical _space_ of a webapp is a terrible idea that should be corrected.  So will notice here that the overall GUI structure of the app is handled with SVGs, using reusable components that are scaled with composable transform matrices according to the rules of homogeneous coordinates from linear algebra.  When we want do do some serious typesetting (writing lengthy prose content counts as serious typesetting whereas a text description on a control does not; creative poetry representations another story and probably have better control with SVG element control in this area) we introduce HTML elements under the SVG `foreignObject` construct.
 
