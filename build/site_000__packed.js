@@ -48122,7 +48122,7 @@
 
 	button_000 = __webpack_require__(196)();
 
-	dragoon_store = __webpack_require__(198);
+	dragoon_store = __webpack_require__(197);
 
 	exhibit = rr({
 	  handle_000: function() {
@@ -48303,8 +48303,7 @@
 
 
 /***/ },
-/* 197 */,
-/* 198 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, dragoon_store, flux, keys, math, mm, ref, rr, shortid, svg_bp;
