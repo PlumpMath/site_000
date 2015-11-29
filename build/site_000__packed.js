@@ -48306,9 +48306,11 @@
 /* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, dragoon_store, flux, keys, math, mm, ref, rr, shortid, svg_bp;
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, dragoon_store, flux, keys, math, mm, program_state, ref, rr, shortid, svg_bp;
 
 	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, flux = ref.flux, _ = ref._, c = ref.c, React = ref.React, React_DOM = ref.React_DOM, Imm = ref.Imm, Bluebird = ref.Bluebird, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, math = ref.math, mm = ref.mm, svg_bp = ref.svg_bp;
+
+	program_state = {};
 
 	dragoon_store = assign({}, EventEmitter.prototype, {
 	  test_000: function() {
