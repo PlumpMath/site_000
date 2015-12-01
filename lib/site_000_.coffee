@@ -14,6 +14,7 @@ require('./__monkey__patch__.coffee')
 exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
+fortune_000 = require('./fortunes/fortune_000_.coffee')()
 
 context_menu_000 = require('./custom_context_menus/nav_context_menu_000_.coffee')()
 
@@ -90,8 +91,7 @@ main = rr
             context_state: navigation_store.get_context_state()
 
     nav_context_000_transform: (M)->
-        c "M", M
-        scale_000 = .5
+        scale_000 = .8
         translate_x = 0
         translate_y = 0
         in_transform_002 = [
@@ -116,6 +116,7 @@ main = rr
                 0, -z, 0,
                 (@state.view_width / 2), (@state.view_height / 2), 1
             ]
+            M: M_002
             imm_M: Imm.fromJS M_002
             # from_root: on
 
@@ -139,6 +140,8 @@ main = rr
             smaller = if @state.view_width < @state.view_height then @state.view_width else @state.view_height
             z = smaller / 200
             div main_div(),
+                # context_menu_000 payload()
+                # fortune_000 payload()
                 svg
                     width: '100%'
                     height: '100%'

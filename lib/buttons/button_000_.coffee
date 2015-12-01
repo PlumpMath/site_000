@@ -1,4 +1,4 @@
-{c, React, Imm, rr, shortid, keys, assign, _, Bluebird, gl_mat, dispatcher, flux, EventEmitter} = require('../__boiler__plate__000__.coffee')()
+{c, React, Imm, rr, shortid, keys, assign, _, Bluebird, gl_mat, dispatcher, EventEmitter} = require('../__boiler__plate__000__.coffee')()
 {p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse} = React.DOM
 
 {navigation_actions} = require '../boiler_plates/flux__boiler__plate__000__.coffee'
