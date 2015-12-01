@@ -12,19 +12,17 @@ button_000 = require('../buttons/button_000_.coffee')()
 
 exhibit = rr
 
-    get_state_from_dragoon_000: ->
-        navigation_store.test_000()
-        red: 'red'
-        white: 'gold'
+    # onContextMenu: (e) ->
+    #     e.preventDefault()
 
     on_change_000: ->
-
-        @setState @get_state_from_dragoon_000()
+        # get state from store if relevant
 
     componentDidMount: ->
         navigation_store.add_change_listener @on_change_000
 
     handle_002: ->
+        c "oon"
         navigation_actions.nav_to_001()
 
     button_000_transform: ->
@@ -58,6 +56,7 @@ exhibit = rr
         svg
             width: '100%'
             height: '100%'
+            # onContextMenu: @onContextMenu
             defs
                 filter
                     id: filter_000

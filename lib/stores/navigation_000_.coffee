@@ -6,12 +6,22 @@ navi_change_event  = 'navi_change_event'
 navigation = keyMirror
     nav_001: null
     nav_002: null
+    cancel_context: null
+    open_context: null
 
 current_location = navigation.nav_001
+context_state = off
 
 
 
 navigation_store = assign {}, EventEmitter.prototype,
+
+    get_context_state: ->
+        return context_state
+
+    set_context_state: (buul)->
+        context_state = buul
+        @emit_navi_change()
 
     set_current_location: (new_location)->
         current_location = navigation[new_location]
@@ -33,12 +43,19 @@ navigation_store.dispatchToken = dispatcher.register (action) ->
 
     switch action.type
 
+        when navigation.open_context
+            navigation_store.set_context_state(on)
+            navigation_store.emit_navi_change()
+
+        when navigation.cancel_context
+            navigation_store.set_context_state(off)
+            navigation_store.emit_navi_change()
+
         when navigation.nav_001
             navigation_store.set_current_location navigation.nav_001
             navigation_store.emit_navi_change()
 
         when navigation.nav_002
-            c 'got here'
             navigation_store.set_current_location navigation.nav_002
             navigation_store.emit_navi_change()
 

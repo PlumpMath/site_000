@@ -6,8 +6,18 @@ keyMirror = require ('react/lib/keyMirror')
 navigation = keyMirror
     nav_001: null
     nav_002: null
+    cancel_context: null
+    open_context: null
 
 navigation_actions =
+
+    open_context_menu: ->
+        dispatcher.dispatch
+            type: navigation.open_context
+
+    cancel_context_menu: ->
+        dispatcher.dispatch
+            type: navigation.cancel_context
 
     nav_to_002: ->
         dispatcher.dispatch

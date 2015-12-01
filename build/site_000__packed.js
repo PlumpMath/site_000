@@ -51,13 +51,11 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keyMirror, keys, li, line, linearGradient, main, navigation, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, context_menu_000, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keyMirror, keys, li, line, linearGradient, main, mat3, navigation, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul;
 
 	document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 
 	imp_root = document.getElementById('__react__root__');
-
-	imp_root.style.overflow = 'hidden';
 
 	__webpack_require__(2);
 
@@ -65,15 +63,19 @@
 
 	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse;
 
-	ref2 = __webpack_require__(199), navigation_store = ref2.navigation_store, navigation_actions = ref2.navigation_actions;
+	ref2 = __webpack_require__(187), navigation_store = ref2.navigation_store, navigation_actions = ref2.navigation_actions;
 
-	exhibit_001 = __webpack_require__(197)();
+	exhibit_001 = __webpack_require__(190)();
 
-	exhibit_002 = __webpack_require__(203)();
+	exhibit_002 = __webpack_require__(192)();
 
-	button_000 = __webpack_require__(198)();
+	button_000 = __webpack_require__(191)();
+
+	context_menu_000 = __webpack_require__(193)();
 
 	keyMirror = __webpack_require__(13);
+
+	mat3 = gl_mat.mat3;
 
 	navigation = keyMirror({
 	  nav_001: null,
@@ -81,9 +83,14 @@
 	});
 
 	main = rr({
+	  handle_scroll: function(e) {},
 	  onContextMenu: function(e) {
 	    e.preventDefault();
-	    return c('here');
+	    return navigation_actions.open_context_menu();
+	  },
+	  click_handle_000: function(e) {
+	    c("if there's a context menu active, cancel it");
+	    return navigation_actions.cancel_context_menu();
 	  },
 	  componentWillUnmount: function() {
 	    return window.onresize = null;
@@ -133,16 +140,32 @@
 	  },
 	  getInitialState: function() {
 	    return {
-	      current_location: navigation_store.get_current_location()
+	      current_location: navigation_store.get_current_location(),
+	      context_state: navigation_store.get_context_state()
 	    };
 	  },
 	  on_nav_change_000: function() {
 	    return this.setState({
-	      current_location: navigation_store.get_current_location()
+	      current_location: navigation_store.get_current_location(),
+	      context_state: navigation_store.get_context_state()
 	    });
 	  },
+	  nav_context_000_transform: function(M) {
+	    var in_transform_002, scale_000, translate_x, translate_y;
+	    c("M", M);
+	    scale_000 = .5;
+	    translate_x = 0;
+	    translate_y = 0;
+	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
+	    return mat3.multiply(mat3.create(), M, in_transform_002);
+	  },
 	  render: function() {
-	    var main_div, payload, ref3, smaller, z;
+	    var M_003, main_div, payload, ref3, smaller, z;
+	    M_003 = (function(_this) {
+	      return function() {
+	        return [z, 0, 0, 0, -z, 0, _this.state.view_width / 2, _this.state.view_height / 2, 1];
+	      };
+	    })(this);
 	    payload = (function(_this) {
 	      return function() {
 	        var M_002;
@@ -157,8 +180,8 @@
 	        style: {
 	          background: 'black',
 	          position: 'absolute',
-	          width: window.innerWidth,
-	          height: window.innerHeight,
+	          width: '100%',
+	          height: '100%',
 	          left: 0,
 	          right: 0,
 	          top: 0,
@@ -171,14 +194,22 @@
 	    } else {
 	      smaller = this.state.view_width < this.state.view_height ? this.state.view_width : this.state.view_height;
 	      z = smaller / 200;
-	      return div(main_div(), (function() {
+	      return div(main_div(), svg({
+	        width: '100%',
+	        height: '100%',
+	        onContextMenu: this.onContextMenu,
+	        onWheel: this.handle_scroll,
+	        onClick: this.click_handle_000
+	      }, (function() {
 	        switch (this.state.current_location) {
 	          case navigation.nav_001:
 	            return exhibit_001(payload());
 	          case navigation.nav_002:
 	            return exhibit_002(payload());
 	        }
-	      }).call(this));
+	      }).call(this), this.state.context_state ? context_menu_000({
+	        M: this.nav_context_000_transform(M_003())
+	      }) : void 0));
 	    }
 	  }
 	});
@@ -2097,17 +2128,17 @@
 
 	Bluebird = __webpack_require__(162);
 
-	flux = __webpack_require__(165);
+	flux = __webpack_require__(164);
 
 	Dispatcher = flux.Dispatcher;
 
 	dispatcher = new Dispatcher();
 
-	EventEmitter = __webpack_require__(168).EventEmitter;
+	EventEmitter = __webpack_require__(167).EventEmitter;
 
-	gl_mat = __webpack_require__(169);
+	gl_mat = __webpack_require__(168);
 
-	shortid = __webpack_require__(179);
+	shortid = __webpack_require__(178);
 
 	module.exports = function() {
 	  return {
@@ -41801,8 +41832,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(163).setImmediate, __webpack_require__(163).clearImmediate))
 
 /***/ },
-/* 164 */,
-/* 165 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41814,11 +41844,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(166);
+	module.exports.Dispatcher = __webpack_require__(165);
 
 
 /***/ },
-/* 166 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -41840,7 +41870,7 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var invariant = __webpack_require__(167);
+	var invariant = __webpack_require__(166);
 
 	var _prefix = 'ID_';
 
@@ -42055,7 +42085,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 167 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -42110,7 +42140,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 168 */
+/* 167 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -42414,7 +42444,7 @@
 
 
 /***/ },
-/* 169 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42445,18 +42475,18 @@
 	THE SOFTWARE. */
 	// END HEADER
 
-	exports.glMatrix = __webpack_require__(170);
-	exports.mat2 = __webpack_require__(171);
-	exports.mat2d = __webpack_require__(172);
-	exports.mat3 = __webpack_require__(173);
-	exports.mat4 = __webpack_require__(174);
-	exports.quat = __webpack_require__(175);
-	exports.vec2 = __webpack_require__(178);
-	exports.vec3 = __webpack_require__(176);
-	exports.vec4 = __webpack_require__(177);
+	exports.glMatrix = __webpack_require__(169);
+	exports.mat2 = __webpack_require__(170);
+	exports.mat2d = __webpack_require__(171);
+	exports.mat3 = __webpack_require__(172);
+	exports.mat4 = __webpack_require__(173);
+	exports.quat = __webpack_require__(174);
+	exports.vec2 = __webpack_require__(177);
+	exports.vec3 = __webpack_require__(175);
+	exports.vec4 = __webpack_require__(176);
 
 /***/ },
-/* 170 */
+/* 169 */
 /***/ function(module, exports) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -42514,7 +42544,7 @@
 
 
 /***/ },
-/* 171 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -42537,7 +42567,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 2x2 Matrix
@@ -42822,7 +42852,7 @@
 
 
 /***/ },
-/* 172 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -42845,7 +42875,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 2x3 Matrix
@@ -43145,7 +43175,7 @@
 
 
 /***/ },
-/* 173 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -43168,7 +43198,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 3x3 Matrix
@@ -43716,7 +43746,7 @@
 
 
 /***/ },
-/* 174 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -43739,7 +43769,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 4x4 Matrix
@@ -45005,7 +45035,7 @@
 
 
 /***/ },
-/* 175 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -45028,10 +45058,10 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
-	var mat3 = __webpack_require__(173);
-	var vec3 = __webpack_require__(176);
-	var vec4 = __webpack_require__(177);
+	var glMatrix = __webpack_require__(169);
+	var mat3 = __webpack_require__(172);
+	var vec3 = __webpack_require__(175);
+	var vec4 = __webpack_require__(176);
 
 	/**
 	 * @class Quaternion
@@ -45564,7 +45594,7 @@
 
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -45587,7 +45617,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 3 Dimensional Vector
@@ -46279,7 +46309,7 @@
 
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -46302,7 +46332,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 4 Dimensional Vector
@@ -46822,7 +46852,7 @@
 
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* Copyright (c) 2015, Brandon Jones, Colin MacKenzie IV.
@@ -46845,7 +46875,7 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE. */
 
-	var glMatrix = __webpack_require__(170);
+	var glMatrix = __webpack_require__(169);
 
 	/**
 	 * @class 2 Dimensional Vector
@@ -47351,23 +47381,23 @@
 
 
 /***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	module.exports = __webpack_require__(179);
+
+
+/***/ },
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	module.exports = __webpack_require__(180);
 
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var alphabet = __webpack_require__(181);
-	var encode = __webpack_require__(183);
-	var decode = __webpack_require__(185);
-	var isValid = __webpack_require__(186);
+	var alphabet = __webpack_require__(180);
+	var encode = __webpack_require__(182);
+	var decode = __webpack_require__(184);
+	var isValid = __webpack_require__(185);
 
 	// Ignore all milliseconds before a certain time to reduce the size of the date entropy without sacrificing uniqueness.
 	// This number should be updated every year or so to keep the generated id short.
@@ -47382,7 +47412,7 @@
 	// has a unique value for worker
 	// Note: I don't know if this is automatically set when using third
 	// party cluster solutions such as pm2.
-	var clusterWorkerId = __webpack_require__(187) || 0;
+	var clusterWorkerId = __webpack_require__(186) || 0;
 
 	// Counter is used when shortid is called multiple times in one second.
 	var counter;
@@ -47465,12 +47495,12 @@
 
 
 /***/ },
-/* 181 */
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var randomFromSeed = __webpack_require__(182);
+	var randomFromSeed = __webpack_require__(181);
 
 	var ORIGINAL = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-';
 	var alphabet;
@@ -47569,7 +47599,7 @@
 
 
 /***/ },
-/* 182 */
+/* 181 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -47600,12 +47630,12 @@
 
 
 /***/ },
-/* 183 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var randomByte = __webpack_require__(184);
+	var randomByte = __webpack_require__(183);
 
 	function encode(lookup, number) {
 	    var loopCounter = 0;
@@ -47625,7 +47655,7 @@
 
 
 /***/ },
-/* 184 */
+/* 183 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -47645,11 +47675,11 @@
 
 
 /***/ },
-/* 185 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var alphabet = __webpack_require__(181);
+	var alphabet = __webpack_require__(180);
 
 	/**
 	 * Decode the id to get the version and worker
@@ -47668,11 +47698,11 @@
 
 
 /***/ },
-/* 186 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var alphabet = __webpack_require__(181);
+	var alphabet = __webpack_require__(180);
 
 	function isShortId(id) {
 	    if (!id || typeof id !== 'string' || id.length < 6 ) {
@@ -47693,7 +47723,7 @@
 
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -47702,16 +47732,143 @@
 
 
 /***/ },
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var c, flux, navigation_actions, navigation_store;
+
+	c = function() {
+	  return console.log.apply(console, arguments);
+	};
+
+	navigation_store = __webpack_require__(188);
+
+	navigation_actions = __webpack_require__(189);
+
+	flux = {
+	  navigation_store: navigation_store,
+	  navigation_actions: navigation_actions
+	};
+
+	module.exports = flux;
+
+
+/***/ },
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, _, assign, c, context_state, current_location, dispatcher, keyMirror, keys, navi_change_event, navigation, navigation_store, ref, shortid;
+
+	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, _ = ref._, c = ref.c, Imm = ref.Imm, Bluebird = ref.Bluebird, shortid = ref.shortid, assign = ref.assign, keys = ref.keys;
+
+	keyMirror = __webpack_require__(13);
+
+	navi_change_event = 'navi_change_event';
+
+	navigation = keyMirror({
+	  nav_001: null,
+	  nav_002: null,
+	  cancel_context: null,
+	  open_context: null
+	});
+
+	current_location = navigation.nav_001;
+
+	context_state = false;
+
+	navigation_store = assign({}, EventEmitter.prototype, {
+	  get_context_state: function() {
+	    return context_state;
+	  },
+	  set_context_state: function(buul) {
+	    context_state = buul;
+	    return this.emit_navi_change();
+	  },
+	  set_current_location: function(new_location) {
+	    current_location = navigation[new_location];
+	    return this.emit_navi_change();
+	  },
+	  get_current_location: function() {
+	    return current_location;
+	  },
+	  emit_navi_change: function() {
+	    return this.emit(navi_change_event);
+	  },
+	  add_change_listener: function(cb) {
+	    return this.on(navi_change_event, cb);
+	  },
+	  remove_change_listener: function(cb) {
+	    return this.removeListener(navi_change_event, cb);
+	  }
+	});
+
+	navigation_store.dispatchToken = dispatcher.register(function(action) {
+	  switch (action.type) {
+	    case navigation.open_context:
+	      navigation_store.set_context_state(true);
+	      return navigation_store.emit_navi_change();
+	    case navigation.cancel_context:
+	      navigation_store.set_context_state(false);
+	      return navigation_store.emit_navi_change();
+	    case navigation.nav_001:
+	      navigation_store.set_current_location(navigation.nav_001);
+	      return navigation_store.emit_navi_change();
+	    case navigation.nav_002:
+	      navigation_store.set_current_location(navigation.nav_002);
+	      return navigation_store.emit_navi_change();
+	    default:
+	      return c('some default case');
+	  }
+	});
+
+	module.exports = navigation_store;
+
+
+/***/ },
+/* 189 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, flux, keyMirror, keys, math, mm, navigation, navigation_actions, ref, rr, shortid, svg_bp;
+
+	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, flux = ref.flux, _ = ref._, c = ref.c, React = ref.React, React_DOM = ref.React_DOM, Imm = ref.Imm, Bluebird = ref.Bluebird, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, math = ref.math, mm = ref.mm, svg_bp = ref.svg_bp;
+
+	keyMirror = __webpack_require__(13);
+
+	navigation = keyMirror({
+	  nav_001: null,
+	  nav_002: null,
+	  cancel_context: null,
+	  open_context: null
+	});
+
+	navigation_actions = {
+	  open_context_menu: function() {
+	    return dispatcher.dispatch({
+	      type: navigation.open_context
+	    });
+	  },
+	  cancel_context_menu: function() {
+	    return dispatcher.dispatch({
+	      type: navigation.cancel_context
+	    });
+	  },
+	  nav_to_002: function() {
+	    return dispatcher.dispatch({
+	      type: navigation.nav_002
+	    });
+	  },
+	  nav_to_001: function() {
+	    return dispatcher.dispatch({
+	      type: navigation.nav_001
+	    });
+	  }
+	};
+
+	module.exports = navigation_actions;
+
+
+/***/ },
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
@@ -47724,15 +47881,11 @@
 
 	vec3 = gl_mat.vec3;
 
-	button_000 = __webpack_require__(198)();
+	button_000 = __webpack_require__(191)();
 
-	ref2 = __webpack_require__(199), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
+	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
 
 	exhibit = rr({
-	  onContextMenu: function(e) {
-	    e.preventDefault();
-	    return c('here');
-	  },
 	  on_change_000: function() {
 	    return c('something');
 	  },
@@ -47743,7 +47896,7 @@
 	    return navigation_store.remove_change_listener(this.on_change_000);
 	  },
 	  handle_002: function() {
-	    return navigation_actions.nav_to_001();
+	    return c('do nothing for now');
 	  },
 	  button_000_transform: function() {
 	    var M_001, in_transform_002, ret_001, scale_000, translate_x, translate_y;
@@ -47776,8 +47929,7 @@
 	    x = oo.x, y = oo.y;
 	    return svg({
 	      width: '100%',
-	      height: '100%',
-	      onContextMenu: this.onContextMenu
+	      height: '100%'
 	    }, defs, filter({
 	      id: filter_000
 	    }, feGaussianBlur({
@@ -47841,7 +47993,7 @@
 
 
 /***/ },
-/* 198 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, button, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, mat3, navigation_actions, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul, vec2, vec3;
@@ -47850,7 +48002,7 @@
 
 	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse;
 
-	navigation_actions = __webpack_require__(199).navigation_actions;
+	navigation_actions = __webpack_require__(187).navigation_actions;
 
 	mat3 = gl_mat.mat3;
 
@@ -47923,116 +48075,7 @@
 
 
 /***/ },
-/* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var c, flux, navigation_actions, navigation_store;
-
-	c = function() {
-	  return console.log.apply(console, arguments);
-	};
-
-	navigation_store = __webpack_require__(202);
-
-	navigation_actions = __webpack_require__(200);
-
-	flux = {
-	  navigation_store: navigation_store,
-	  navigation_actions: navigation_actions
-	};
-
-	module.exports = flux;
-
-
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, flux, keyMirror, keys, math, mm, navigation, navigation_actions, ref, rr, shortid, svg_bp;
-
-	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, flux = ref.flux, _ = ref._, c = ref.c, React = ref.React, React_DOM = ref.React_DOM, Imm = ref.Imm, Bluebird = ref.Bluebird, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, math = ref.math, mm = ref.mm, svg_bp = ref.svg_bp;
-
-	keyMirror = __webpack_require__(13);
-
-	navigation = keyMirror({
-	  nav_001: null,
-	  nav_002: null
-	});
-
-	navigation_actions = {
-	  nav_to_002: function() {
-	    return dispatcher.dispatch({
-	      type: navigation.nav_002
-	    });
-	  },
-	  nav_to_001: function() {
-	    return dispatcher.dispatch({
-	      type: navigation.nav_001
-	    });
-	  }
-	};
-
-	module.exports = navigation_actions;
-
-
-/***/ },
-/* 201 */,
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Bluebird, EventEmitter, Imm, _, assign, c, current_location, dispatcher, keyMirror, keys, navi_change_event, navigation, navigation_store, ref, shortid;
-
-	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, _ = ref._, c = ref.c, Imm = ref.Imm, Bluebird = ref.Bluebird, shortid = ref.shortid, assign = ref.assign, keys = ref.keys;
-
-	keyMirror = __webpack_require__(13);
-
-	navi_change_event = 'navi_change_event';
-
-	navigation = keyMirror({
-	  nav_001: null,
-	  nav_002: null
-	});
-
-	current_location = navigation.nav_001;
-
-	navigation_store = assign({}, EventEmitter.prototype, {
-	  set_current_location: function(new_location) {
-	    current_location = navigation[new_location];
-	    return this.emit_navi_change();
-	  },
-	  get_current_location: function() {
-	    return current_location;
-	  },
-	  emit_navi_change: function() {
-	    return this.emit(navi_change_event);
-	  },
-	  add_change_listener: function(cb) {
-	    return this.on(navi_change_event, cb);
-	  },
-	  remove_change_listener: function(cb) {
-	    return this.removeListener(navi_change_event, cb);
-	  }
-	});
-
-	navigation_store.dispatchToken = dispatcher.register(function(action) {
-	  switch (action.type) {
-	    case navigation.nav_001:
-	      navigation_store.set_current_location(navigation.nav_001);
-	      return navigation_store.emit_navi_change();
-	    case navigation.nav_002:
-	      c('got here');
-	      navigation_store.set_current_location(navigation.nav_002);
-	      return navigation_store.emit_navi_change();
-	    default:
-	      return c('some default case');
-	  }
-	});
-
-	module.exports = navigation_store;
-
-
-/***/ },
-/* 203 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
@@ -48045,25 +48088,17 @@
 
 	vec3 = gl_mat.vec3;
 
-	button_000 = __webpack_require__(198)();
+	button_000 = __webpack_require__(191)();
 
-	ref2 = __webpack_require__(199), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
+	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
 
 	exhibit = rr({
-	  get_state_from_dragoon_000: function() {
-	    navigation_store.test_000();
-	    return {
-	      red: 'red',
-	      white: 'gold'
-	    };
-	  },
-	  on_change_000: function() {
-	    return this.setState(this.get_state_from_dragoon_000());
-	  },
+	  on_change_000: function() {},
 	  componentDidMount: function() {
 	    return navigation_store.add_change_listener(this.on_change_000);
 	  },
 	  handle_002: function() {
+	    c("oon");
 	    return navigation_actions.nav_to_001();
 	  },
 	  button_000_transform: function() {
@@ -48157,6 +48192,56 @@
 
 	module.exports = function() {
 	  return exhibit;
+	};
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, mat3, navi_context_menu, navigation_actions, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul, vec2, vec3;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, EventEmitter = ref.EventEmitter;
+
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse;
+
+	navigation_actions = __webpack_require__(187).navigation_actions;
+
+	mat3 = gl_mat.mat3;
+
+	vec2 = gl_mat.vec2;
+
+	vec3 = gl_mat.vec3;
+
+	navi_context_menu = rr({
+	  render: function() {
+	    var M, in_origin, in_side, out_origin, out_side, scale_x, scale_y, x, y;
+	    M = this.props.M;
+	    scale_x = M[0];
+	    scale_y = M[4];
+	    in_origin = [-50, 50, 1];
+	    in_side = 100;
+	    out_origin = vec3.transformMat3(vec3.create(), in_origin, M);
+	    out_side = in_side * scale_x;
+	    x = out_origin[0];
+	    y = out_origin[1];
+	    return svg({
+	      width: '100%',
+	      height: '100%'
+	    }, rect({
+	      x: x,
+	      y: y,
+	      width: out_side,
+	      height: out_side,
+	      fill: 'white',
+	      opacity: .67,
+	      stroke: 'blue'
+	    }));
+	  }
+	});
+
+	module.exports = function() {
+	  return navi_context_menu;
 	};
 
 

@@ -14,20 +14,11 @@ button = rr
         
     render: ->
         M = @props.transform_matrix
-        # c "button's M", M
-        # scale_x = M[0][0]
         scale_x = M[0]
-        # scale_y = M[1][1]
         scale_y = M[4]
-        # in_origin = [-50, 50, 1]
         in_origin = [-50, 50, 1]
         in_side = 100
-        # out_origin = mm M, in_origin
-        # out_origin = mat3.mul mat3.create(), M, in_origin
-        # out_origin = mat3.translate mat3.create(), M, in_origin
-        # N = mat3.transpose mat3.create(), M
         out_origin = vec3.transformMat3 vec3.create(), in_origin, M
-        # c 'out_origin', out_origin
         out_side = in_side * scale_x
         oo = {x: out_origin[0], y: out_origin[1]}
         {x, y} = oo

@@ -12,6 +12,14 @@ navi_context_menu = rr
 
 
     render: ->
+        M = @props.M
+        scale_x = M[0] ; scale_y = M[4]
+        in_origin = [-50, 50, 1]
+        in_side = 100
+        out_origin = vec3.transformMat3 vec3.create(), in_origin, M
+        out_side = in_side * scale_x
+        x = out_origin[0] ; y = out_origin[1]
+
         svg
             width: '100%'
             height: '100%'
@@ -19,9 +27,10 @@ navi_context_menu = rr
             rect
                 x: x
                 y: y
-                width: 50
-                height: 50
-                opacity: .87
+                width: out_side
+                height: out_side
+                fill: 'white'
+                opacity: .67
                 stroke: 'blue'
 
 module.exports = -> navi_context_menu

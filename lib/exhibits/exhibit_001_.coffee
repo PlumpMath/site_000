@@ -12,9 +12,10 @@ button_000 = require('../buttons/button_000_.coffee')()
 
 exhibit = rr
 
-    onContextMenu: (e) ->
-        e.preventDefault()
-        c 'here'
+    # onContextMenu: (e) ->
+    #     e.preventDefault()
+    #     # get mouse location
+
 
     on_change_000: ->
         c 'something'
@@ -27,7 +28,8 @@ exhibit = rr
         navigation_store.remove_change_listener @on_change_000
 
     handle_002: ->
-        navigation_actions.nav_to_001()
+        #navigation_actions.nav_to_002()
+        c 'do nothing for now'
 
     button_000_transform: ->
         scale_000 = .05
@@ -60,7 +62,7 @@ exhibit = rr
         svg
             width: '100%'
             height: '100%'
-            onContextMenu: @onContextMenu
+            # onContextMenu: @onContextMenu
             defs
                 filter
                     id: filter_000

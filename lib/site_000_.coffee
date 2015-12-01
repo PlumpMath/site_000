@@ -1,7 +1,7 @@
 
 document.getElementsByTagName('body')[0].style.overflow = 'hidden'
 imp_root = document.getElementById('__react__root__')
-imp_root.style.overflow = 'hidden'
+# imp_root.style.overflow = 'hidden'
 require('./__monkey__patch__.coffee')
 {c, React, Imm, rr, shortid, assign, keys, _, React_DOM, gl_mat, Bluebird, dispatcher, EventEmitter} = require('./__boiler__plate__000__.coffee')()
 # note Todo modularise boilerplates for better organisation and 
@@ -15,7 +15,11 @@ exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
 
+context_menu_000 = require('./custom_context_menus/nav_context_menu_000_.coffee')()
+
 keyMirror = require ('react/lib/keyMirror')
+
+mat3 = gl_mat.mat3
 
 navigation = keyMirror
     nav_001: null
@@ -25,12 +29,22 @@ main = rr
     # componentWillUpdate: (nextProps, nextState) ->
     #     @set_boundingRect
 
+    handle_scroll: (e)->
+        # c "e", e
+
     onContextMenu: (e) ->
         e.preventDefault()
-        c 'here'
+        navigation_actions.open_context_menu()
+        # maybe i don't wan't to place the context menu all over the place
+        # better just to have it in center translucent and big
+
+    click_handle_000: (e)->
+        c "if there's a context menu active, cancel it"
+        navigation_actions.cancel_context_menu()
 
     componentWillUnmount: ->
         window.onresize = null
+
     set_boundingRect: ->
         @forceUpdate()
         bounding_rect = React_DOM.findDOMNode(@).getBoundingClientRect()
@@ -52,21 +66,49 @@ main = rr
             clearTimeout(timeout)
             timeout = setTimeout(later, wait)
             if callNow then func.apply(context, args)
+
     debounced_set_boundingRect: -> @debounce(@set_boundingRect, 500)()
+
     componentDidMount: ->
         @set_boundingRect()
         window.onresize = @debounced_set_boundingRect
         #window.onresize = @set_boundingRect
         navigation_store.add_change_listener @on_nav_change_000
+
+
+
+
     componentWillUnmount: ->
         navigation_store.remove_change_listener @on_nav_change_000
     getInitialState: ->
         current_location: navigation_store.get_current_location()
+        context_state: navigation_store.get_context_state()
 
     on_nav_change_000: ->
         @setState
             current_location: navigation_store.get_current_location()
+            context_state: navigation_store.get_context_state()
+
+    nav_context_000_transform: (M)->
+        c "M", M
+        scale_000 = .5
+        translate_x = 0
+        translate_y = 0
+        in_transform_002 = [
+            scale_000, 0, 0,
+            0, scale_000, 0,
+            translate_x, translate_y, 1
+        ]
+        mat3.multiply mat3.create(), M, in_transform_002
+
+
     render: ->
+
+        M_003 = => [
+                z, 0, 0,
+                0, -z, 0,
+                (@state.view_width / 2), (@state.view_height / 2), 1
+            ]
 
         payload = =>
             M_002 = [
@@ -81,8 +123,10 @@ main = rr
             style:
                 background: 'black'
                 position: 'absolute'
-                width: window.innerWidth
-                height: window.innerHeight
+                # width: window.innerWidth
+                width: '100%'
+                # height: window.innerHeight
+                height: '100%'
                 left: 0
                 right: 0
                 top: 0
@@ -95,11 +139,23 @@ main = rr
             smaller = if @state.view_width < @state.view_height then @state.view_width else @state.view_height
             z = smaller / 200
             div main_div(),
-                switch @state.current_location
-                    when navigation.nav_001
-                        exhibit_001 payload()
-                    when navigation.nav_002
-                        exhibit_002 payload()
+                svg
+                    width: '100%'
+                    height: '100%'
+                    onContextMenu: @onContextMenu
+                    onWheel: @handle_scroll
+                    onClick: @click_handle_000
+                ,
+                    switch @state.current_location
+                        when navigation.nav_001
+                            exhibit_001 payload()
+                        when navigation.nav_002
+                            exhibit_002 payload()
+                    if @state.context_state
+                        context_menu_000
+                            M: @nav_context_000_transform(M_003())
+
+
 
 
 React_DOM.render main(), imp_root
