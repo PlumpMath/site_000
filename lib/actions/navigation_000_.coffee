@@ -5,8 +5,13 @@ keyMirror = require ('react/lib/keyMirror')
 
 navigation = keyMirror
     nav_001: null
+    nav_002: null
 
 navigation_actions =
+
+    nav_to_002: ->
+        dispatcher.dispatch
+            type: navigation.nav_002
 
     nav_to_001: ->
         dispatcher.dispatch

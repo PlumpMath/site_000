@@ -144,6 +144,7 @@ And it's not so bad for writing.
 
             button_000
                 transform_matrix: @button_000_transform()
+                action_fn: navigation_actions.nav_to_001
 
 
 

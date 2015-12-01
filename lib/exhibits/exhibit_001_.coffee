@@ -12,17 +12,19 @@ button_000 = require('../buttons/button_000_.coffee')()
 
 exhibit = rr
 
-    get_state_from_dragoon_000: ->
-        navigation_store.test_000()
-        red: 'red'
-        white: 'gold'
+    onContextMenu: (e) ->
+        e.preventDefault()
+        c 'here'
 
     on_change_000: ->
-
-        @setState @get_state_from_dragoon_000()
+        c 'something'
+        # @setState @get_state_from_dragoon_000()
 
     componentDidMount: ->
         navigation_store.add_change_listener @on_change_000
+
+    componentWillUnmount: ->
+        navigation_store.remove_change_listener @on_change_000
 
     handle_002: ->
         navigation_actions.nav_to_001()
@@ -58,6 +60,7 @@ exhibit = rr
         svg
             width: '100%'
             height: '100%'
+            onContextMenu: @onContextMenu
             defs
                 filter
                     id: filter_000
@@ -133,17 +136,13 @@ This is another paragraph.
 And it's not so bad for writing. 
 
 
-
-
-
-
 "
 
 
-        
 
             button_000
                 transform_matrix: @button_000_transform()
+                action_fn: navigation_actions.nav_to_002
 
 
 

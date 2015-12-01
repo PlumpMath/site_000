@@ -10,8 +10,8 @@ vec3 = gl_mat.vec3
 button = rr
     
     handle_click: ->
-        navigation_actions.nav_to_001()
-
+        @props.action_fn()
+        
     render: ->
         M = @props.transform_matrix
         # c "button's M", M
@@ -59,8 +59,6 @@ button = rr
                         dx: 5
                         dy: 3
 
-
-
             rect
                 x: x
                 y: y
@@ -69,10 +67,10 @@ button = rr
                 opacity: .87
                 fill: 'url(#restart_grad_000)'
                 stroke: 'blue'
-                onContextMenu: (e) -> e.preventDefault()
                 onClick: @handle_click
                 onMouseLeave: @handle_mouseleave
                 onMouseOver: @handle_mouseover
+                onContextMenu: @onContextMenu
             # text
             #     style:
             #         MozUserSelect: 'none'

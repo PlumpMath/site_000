@@ -15,9 +15,20 @@ exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
 
+keyMirror = require ('react/lib/keyMirror')
+
+navigation = keyMirror
+    nav_001: null
+    nav_002: null
+
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
     #     @set_boundingRect
+
+    onContextMenu: (e) ->
+        e.preventDefault()
+        c 'here'
+
     componentWillUnmount: ->
         window.onresize = null
     set_boundingRect: ->
@@ -46,8 +57,17 @@ main = rr
         @set_boundingRect()
         window.onresize = @debounced_set_boundingRect
         #window.onresize = @set_boundingRect
+        navigation_store.add_change_listener @on_nav_change_000
+    componentWillUnmount: ->
+        navigation_store.remove_change_listener @on_nav_change_000
+    getInitialState: ->
+        current_location: navigation_store.get_current_location()
 
+    on_nav_change_000: ->
+        @setState
+            current_location: navigation_store.get_current_location()
     render: ->
+
         payload = =>
             M_002 = [
                 z, 0, 0,
@@ -75,8 +95,11 @@ main = rr
             smaller = if @state.view_width < @state.view_height then @state.view_width else @state.view_height
             z = smaller / 200
             div main_div(),
-
-                exhibit_002 payload()
+                switch @state.current_location
+                    when navigation.nav_001
+                        exhibit_001 payload()
+                    when navigation.nav_002
+                        exhibit_002 payload()
 
 
 React_DOM.render main(), imp_root

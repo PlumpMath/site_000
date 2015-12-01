@@ -51,7 +51,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keys, li, line, linearGradient, main, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul;
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keyMirror, keys, li, line, linearGradient, main, navigation, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul;
 
 	document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 
@@ -73,7 +73,18 @@
 
 	button_000 = __webpack_require__(198)();
 
+	keyMirror = __webpack_require__(13);
+
+	navigation = keyMirror({
+	  nav_001: null,
+	  nav_002: null
+	});
+
 	main = rr({
+	  onContextMenu: function(e) {
+	    e.preventDefault();
+	    return c('here');
+	  },
 	  componentWillUnmount: function() {
 	    return window.onresize = null;
 	  },
@@ -114,7 +125,21 @@
 	  },
 	  componentDidMount: function() {
 	    this.set_boundingRect();
-	    return window.onresize = this.debounced_set_boundingRect;
+	    window.onresize = this.debounced_set_boundingRect;
+	    return navigation_store.add_change_listener(this.on_nav_change_000);
+	  },
+	  componentWillUnmount: function() {
+	    return navigation_store.remove_change_listener(this.on_nav_change_000);
+	  },
+	  getInitialState: function() {
+	    return {
+	      current_location: navigation_store.get_current_location()
+	    };
+	  },
+	  on_nav_change_000: function() {
+	    return this.setState({
+	      current_location: navigation_store.get_current_location()
+	    });
 	  },
 	  render: function() {
 	    var main_div, payload, ref3, smaller, z;
@@ -146,7 +171,14 @@
 	    } else {
 	      smaller = this.state.view_width < this.state.view_height ? this.state.view_width : this.state.view_height;
 	      z = smaller / 200;
-	      return div(main_div(), exhibit_002(payload()));
+	      return div(main_div(), (function() {
+	        switch (this.state.current_location) {
+	          case navigation.nav_001:
+	            return exhibit_001(payload());
+	          case navigation.nav_002:
+	            return exhibit_002(payload());
+	        }
+	      }).call(this));
 	    }
 	  }
 	});
@@ -47697,18 +47729,18 @@
 	ref2 = __webpack_require__(199), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
 
 	exhibit = rr({
-	  get_state_from_dragoon_000: function() {
-	    navigation_store.test_000();
-	    return {
-	      red: 'red',
-	      white: 'gold'
-	    };
+	  onContextMenu: function(e) {
+	    e.preventDefault();
+	    return c('here');
 	  },
 	  on_change_000: function() {
-	    return this.setState(this.get_state_from_dragoon_000());
+	    return c('something');
 	  },
 	  componentDidMount: function() {
 	    return navigation_store.add_change_listener(this.on_change_000);
+	  },
+	  componentWillUnmount: function() {
+	    return navigation_store.remove_change_listener(this.on_change_000);
 	  },
 	  handle_002: function() {
 	    return navigation_actions.nav_to_001();
@@ -47744,7 +47776,8 @@
 	    x = oo.x, y = oo.y;
 	    return svg({
 	      width: '100%',
-	      height: '100%'
+	      height: '100%',
+	      onContextMenu: this.onContextMenu
 	    }, defs, filter({
 	      id: filter_000
 	    }, feGaussianBlur({
@@ -47796,7 +47829,8 @@
 	        fontSize: scale_x * 3
 	      }
 	    }, "This is another paragraph. And it's not so bad for writing.")), button_000({
-	      transform_matrix: this.button_000_transform()
+	      transform_matrix: this.button_000_transform(),
+	      action_fn: navigation_actions.nav_to_002
 	    }));
 	  }
 	});
@@ -47826,7 +47860,7 @@
 
 	button = rr({
 	  handle_click: function() {
-	    return navigation_actions.nav_to_001();
+	    return this.props.action_fn();
 	  },
 	  render: function() {
 	    var M, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, x, y;
@@ -47875,12 +47909,10 @@
 	      opacity: .87,
 	      fill: 'url(#restart_grad_000)',
 	      stroke: 'blue',
-	      onContextMenu: function(e) {
-	        return e.preventDefault();
-	      },
 	      onClick: this.handle_click,
 	      onMouseLeave: this.handle_mouseleave,
-	      onMouseOver: this.handle_mouseover
+	      onMouseOver: this.handle_mouseover,
+	      onContextMenu: this.onContextMenu
 	    }));
 	  }
 	});
@@ -47923,10 +47955,16 @@
 	keyMirror = __webpack_require__(13);
 
 	navigation = keyMirror({
-	  nav_001: null
+	  nav_001: null,
+	  nav_002: null
 	});
 
 	navigation_actions = {
+	  nav_to_002: function() {
+	    return dispatcher.dispatch({
+	      type: navigation.nav_002
+	    });
+	  },
 	  nav_to_001: function() {
 	    return dispatcher.dispatch({
 	      type: navigation.nav_001
@@ -47942,7 +47980,7 @@
 /* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, _, assign, c, current_location, dispatcher, keyMirror, keys, navi_change_event, navi_states, navigation_store, ref, shortid;
+	var Bluebird, EventEmitter, Imm, _, assign, c, current_location, dispatcher, keyMirror, keys, navi_change_event, navigation, navigation_store, ref, shortid;
 
 	ref = __webpack_require__(20)(), EventEmitter = ref.EventEmitter, dispatcher = ref.dispatcher, _ = ref._, c = ref.c, Imm = ref.Imm, Bluebird = ref.Bluebird, shortid = ref.shortid, assign = ref.assign, keys = ref.keys;
 
@@ -47950,19 +47988,18 @@
 
 	navi_change_event = 'navi_change_event';
 
-	navi_states = keyMirror({
-	  deck_000: null,
-	  exhibit_001: null,
-	  exhibit_002: null
+	navigation = keyMirror({
+	  nav_001: null,
+	  nav_002: null
 	});
 
-	current_location = navi_states.exhibit_001;
+	current_location = navigation.nav_001;
 
 	navigation_store = assign({}, EventEmitter.prototype, {
-	  test_000: function() {
-	    return c("test000 works");
+	  set_current_location: function(new_location) {
+	    current_location = navigation[new_location];
+	    return this.emit_navi_change();
 	  },
-	  set_current_location: function(new_location) {},
 	  get_current_location: function() {
 	    return current_location;
 	  },
@@ -47979,11 +48016,13 @@
 
 	navigation_store.dispatchToken = dispatcher.register(function(action) {
 	  switch (action.type) {
-	    case 'nav_000':
-	      c("dragoon store switch has action_type nav_000");
+	    case navigation.nav_001:
+	      navigation_store.set_current_location(navigation.nav_001);
 	      return navigation_store.emit_navi_change();
-	    case 'nav_001':
-	      return c('dragoon store has action type nav_001');
+	    case navigation.nav_002:
+	      c('got here');
+	      navigation_store.set_current_location(navigation.nav_002);
+	      return navigation_store.emit_navi_change();
 	    default:
 	      return c('some default case');
 	  }
@@ -48110,7 +48149,8 @@
 	        fontSize: scale_x * 3
 	      }
 	    }, "This is another paragraph. And it's not so bad for writing.")), button_000({
-	      transform_matrix: this.button_000_transform()
+	      transform_matrix: this.button_000_transform(),
+	      action_fn: navigation_actions.nav_to_001
 	    }));
 	  }
 	});

@@ -3,21 +3,19 @@ keyMirror = require ('react/lib/keyMirror')
 
 navi_change_event  = 'navi_change_event'
 
-navi_states = keyMirror
-    deck_000: null
-    exhibit_001: null
-    exhibit_002: null
+navigation = keyMirror
+    nav_001: null
+    nav_002: null
 
-current_location = navi_states.exhibit_001
+current_location = navigation.nav_001
 
 
 
 navigation_store = assign {}, EventEmitter.prototype,
 
-    test_000: ->
-        c "test000 works"
-
     set_current_location: (new_location)->
+        current_location = navigation[new_location]
+        @emit_navi_change()
 
     get_current_location: ->
         return current_location
@@ -35,11 +33,14 @@ navigation_store.dispatchToken = dispatcher.register (action) ->
 
     switch action.type
 
-        when 'nav_000'
-            c "dragoon store switch has action_type nav_000"
+        when navigation.nav_001
+            navigation_store.set_current_location navigation.nav_001
             navigation_store.emit_navi_change()
-        when 'nav_001'
-            c 'dragoon store has action type nav_001'
+
+        when navigation.nav_002
+            c 'got here'
+            navigation_store.set_current_location navigation.nav_002
+            navigation_store.emit_navi_change()
 
         else
             c 'some default case'
