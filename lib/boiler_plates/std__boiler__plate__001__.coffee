@@ -4,7 +4,7 @@ React_DOM = require 'react-dom'
 Immutable = require 'immutable'
 _ = require 'lodash'
 Bluebird = require 'bluebird'
-# math = require './math.min.js'
+math = require './math.min.js'
 flux = require 'flux'
 Dispatcher = flux.Dispatcher
 dispatcher = new Dispatcher()
@@ -15,7 +15,7 @@ shortid = require 'shortid'
 module.exports = ->
     EventEmitter: EventEmitter
     dispatcher: dispatcher
-    # flux: flux
+    flux: flux
     _: _
     React: React
     React_DOM: React_DOM
@@ -26,9 +26,9 @@ module.exports = ->
     shortid: shortid
     assign: -> _.assign.apply(_, arguments)
     keys: -> _.keys.apply(_, arguments)
-    # math: math
+    math: math
     gl_mat: gl_mat
-    # mm: -> math.multiply.apply math, arguments
+    mm: -> math.multiply.apply math, arguments
 
     # maybe remove the binding to lodash back to native ES6 if 
     # browser compat changed for the better since summer 2015

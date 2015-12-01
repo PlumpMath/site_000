@@ -3,21 +3,16 @@ document.getElementsByTagName('body')[0].style.overflow = 'hidden'
 imp_root = document.getElementById('__react__root__')
 imp_root.style.overflow = 'hidden'
 require('./__monkey__patch__.coffee')
-{c, React, Imm, rr, shortid, assign, keys, math, _, React_DOM, mm, gl_mat, Bluebird, flux, dispatcher, EventEmitter} = require('./__boiler__plate__000__.coffee')()
+{c, React, Imm, rr, shortid, assign, keys, _, React_DOM, gl_mat, Bluebird, dispatcher, EventEmitter} = require('./__boiler__plate__000__.coffee')()
 # note Todo modularise boilerplates for better organisation and 
 # underssntanding of what can be removed
 
 {p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse} = React.DOM
 
-# sketch_000 = require('./pad/sketch_000_.coffee')()
-# sketch_001 = require('./pad/sketch_001_.coffee')()
+{navigation_store, navigation_actions} = require './boiler_plates/flux__boiler__plate__000__.coffee'
 
-card_000 = require('./cards/card_000_.coffee')()
-deep_blue_000 = require('./cards/deep_blue_000_.coffee')()
-deck_000 = require('./decks/deck_000_.coffee')()
-
-exhibit_000 = require('./exhibits/exhibit_000_.coffee')()
 exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
+exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
 
 main = rr
@@ -54,11 +49,12 @@ main = rr
 
     render: ->
         payload = =>
-            M = [[z, 0, (@state.view_width / 2)],[0, -z, (@state.view_height / 2)],[0, 0, 1]]
-            transform_matrix: [[z, 0, (@state.view_width / 2)],[0, -z, (@state.view_height / 2)],[0, 0, 1]]
-            #TODO implement the shouldComponent update stuff as below with Immutable
-            # & remove the transform_matrix arg in favor of immM arg
-            imm_M: Imm.fromJS M
+            M_002 = [
+                z, 0, 0,
+                0, -z, 0,
+                (@state.view_width / 2), (@state.view_height / 2), 1
+            ]
+            imm_M: Imm.fromJS M_002
             # from_root: on
 
         main_div = ->
@@ -74,22 +70,13 @@ main = rr
 
         if not @state?.view_width
             div main_div(),
-                h1 null, "Hellososo"
+                h1 null, "..."
         else
             smaller = if @state.view_width < @state.view_height then @state.view_width else @state.view_height
             z = smaller / 200
             div main_div(),
-                # h1 {style:{color:'white'}}, "Hello"
-                # sketch_000 payload()
 
-                # card_000 payload()
-                #sketch_001 payload()
-                # deep_blue_000 payload()
-                # deck_000 payload()
-                exhibit_001 payload()
-                # button_000 payload()
-
-
+                exhibit_002 payload()
 
 
 React_DOM.render main(), imp_root
