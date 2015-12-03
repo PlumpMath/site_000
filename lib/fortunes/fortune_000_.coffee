@@ -32,7 +32,9 @@ fortune = rr
         svg
             width: '100%'
             height: '100%'
-            onClick: @handle_click
+            onClick: @props.click_action
+            style:
+                cursor: 'pointer'
             defs
                 filter
                     id: filter_000
@@ -76,7 +78,6 @@ fortune = rr
                 fill: "url(##{grad_000})"
                 filter: "url(##{filter_000})"
                 # stroke: 'blue'
-                # onClick: @handle_click
                 # onMouseLeave: @handle_mouseleave
                 # onMouseOver: @handle_mouseover
                 # onContextMenu: @onContextMenu

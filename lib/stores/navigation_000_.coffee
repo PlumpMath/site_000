@@ -3,7 +3,7 @@ keyMirror = require ('react/lib/keyMirror')
 
 navi_change_event  = 'navi_change_event'
 
-navigation = require('../actions/navigation_000_.coffee').action_names
+navigation_actions = require('../actions/navigation_000_.coffee').action_names
 
 # distinct from actions
 navigation_locations = keyMirror
@@ -13,7 +13,7 @@ navigation_locations = keyMirror
 
 
 
-current_location = navigation.nav_001
+current_location = navigation_locations.nav_001
 context_state = off
 
 navigation_store = assign {}, EventEmitter.prototype,
@@ -23,12 +23,16 @@ navigation_store = assign {}, EventEmitter.prototype,
     get_context_state: ->
         return context_state
 
+    bare_off_context_state: ->
+        context_state = off # this might or might not 
+        # be better than using waitFor pattern
+
     set_context_state: (buul)->
         context_state = buul
         @emit_navi_change()
 
     set_current_location: (new_location)->
-        current_location = navigation[new_location]
+        current_location = navigation_locations[new_location]
         @emit_navi_change()
 
     get_current_location: ->
@@ -47,23 +51,27 @@ navigation_store.dispatchToken = dispatcher.register (action) ->
 
     switch action.type
 
-        when navigation.open_context
+        when navigation_actions.go_projects_map_000
+            navigation_store.bare_off_context_state()
+            navigation_store.set_current_location navigation_locations.projects_map_000
+
+        when navigation_actions.open_context
             navigation_store.set_context_state(on)
             navigation_store.emit_navi_change()
 
-        when navigation.cancel_context
+        when navigation_actions.cancel_context
             navigation_store.set_context_state(off)
             navigation_store.emit_navi_change()
 
-        when navigation.nav_001
+        when navigation_actions.nav_001
             navigation_store.set_current_location navigation.nav_001
             navigation_store.emit_navi_change()
 
-        when navigation.nav_002
+        when navigation_actions.nav_002
             navigation_store.set_current_location navigation.nav_002
             navigation_store.emit_navi_change()
 
-        when navigation.nav_003
+        when navigation_actions.nav_003
             navigation_store.set_current_location navigation.nav_003
             navigation_store.emit_navi_change()
 

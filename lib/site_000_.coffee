@@ -11,34 +11,76 @@ require('./__monkey__patch__.coffee')
 
 {navigation_store, navigation_actions} = require './boiler_plates/flux__boiler__plate__000__.coffee'
 
+locations = require('./stores/navigation_000_.coffee').navigation_locations
+# above could probably be folded into the flux boiler plate as well
+
 exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
 exhibit_003 = require('./exhibits/exhibit_003_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
 fortune_000 = require('./fortunes/fortune_000_.coffee')()
+projects_map_000 = require('./exhibits/projects_map_000_.coffee')()
 
 context_menu_000 = require('./custom_context_menus/nav_context_menu_000_.coffee')()
 
 keyMirror = require ('react/lib/keyMirror')
 
 mat3 = gl_mat.mat3
+vec3 = gl_mat.vec3
 
 # navigation = keyMirror
 #     nav_001: null
 #     nav_002: null
 #     nav_003: null
 
-locations = require('./stores/navigation_000_.coffee').navigation_locations
+
 
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
     #     @set_boundingRect
+    payload_000: (square_side, view_width, view_height)->
+        M_002 = [
+            square_side, 0, 0,
+            0, -square_side, 0,
+            (view_width / 2), (view_height / 2), 1
+        ]
+        M: M_002
+        imm_M: Imm.fromJS M_002
+
+    payload_001: ->
+        [
+            @square_side, 0, 0,
+            0, -@square_side, 0,
+            (@state.view_width / 2), (@state.view_height / 2), 1
+        ]
+
+    inverse_payload_000: ->
+        M = @payload_001()
+        mat3.invert mat3.create(), M
+
+    square_side: null
+
+    mouse_location:
+        x: null
+        y: null
 
     handle_scroll: (e)->
-        # c "e", e
+        c "e.deltaX", e.deltaX
+        c "e.deltaY", e.deltaY
 
     onContextMenu: (e) ->
         e.preventDefault()
+        c "e", e
+        c e.pageX
+        # c "payload_001", @payload_001()
+        inv = @inverse_payload_000()
+        c 'inv', inv
+        vec = vec3.transformMat3 vec3.create(), [e.pageX, e.pageY, 1], inv
+        c 'vec',vec
+        @mouse_location =
+            x: vec[0]
+            y: vec[1]
+        
         navigation_actions.open_context_menu()
         # maybe i don't wan't to place the context menu all over the place
         # better just to have it in center translucent and big
@@ -93,9 +135,10 @@ main = rr
             context_state: navigation_store.get_context_state()
 
     nav_context_000_transform: (M)->
-        scale_000 = .44
-        translate_x = 0
-        translate_y = 0
+        scale_000 = .34
+        translate_x = @mouse_location.x
+        translate_y = @mouse_location.y
+        c 'translate x', translate_x
         in_transform_002 = [
             scale_000, 0, 0,
             0, scale_000, 0,
@@ -176,7 +219,7 @@ main = rr
                 # spare = 'horizontal'
                 # so then the delta is 
                 spare_side = (((@state.view_width - @state.view_height) / 2) / 200)
-            square_side = smaller / 200
+            @square_side = square_side = smaller / 200
 
             # i want to be able to use the leftover space whether it's 
             # vertical blackspace or horizontal blackspace.
@@ -192,11 +235,12 @@ main = rr
                     onWheel: @handle_scroll
                     onClick: @click_handle_000
                 ,
-                    c @state.current_location
-                    c locations.nav_001
                     switch @state.current_location
+                        when locations.projects_map_000
+                            projects_map_000 payload()
                         when locations.nav_001
-                            exhibit_001 payload()
+                            #exhibit_001 payload()
+                            exhibit_001 @payload_000(square_side, @state.view_width, @state.view_height)
                         when locations.nav_002
                             exhibit_002 payload()
                         when locations.nav_003

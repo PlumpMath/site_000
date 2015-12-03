@@ -11,14 +11,19 @@ vec2 = gl_mat.vec2
 vec3 = gl_mat.vec3
 
 navi_context_menu = rr
+    scale_000: .777
+
+    go_projects_map_000: (e)->
+        e.stopPropagation()
+        navigation_actions.go_projects_map_000()
 
     fortune_000_transform: ->
-        scale_000 = 1
+        # scale_000 = .
         translate_x = 0
         translate_y = 36
         in_transform_002 = [
-            scale_000, 0, 0,
-            0, scale_000, 0,
+            @scale_000, 0, 0,
+            0, @scale_000, 0,
             translate_x, translate_y, 1
         ]
         # M_001 =  @props.imm_M.toJS()
@@ -26,12 +31,12 @@ navi_context_menu = rr
         mat3.multiply mat3.create(), M_001, in_transform_002
 
     fortune_transform_001: (trans_x, trans_y) ->
-        scale_000 = 1
+        # scale_000 = 1
         translate_x = trans_x
         translate_y = trans_y
         in_transform_002 = [
-            scale_000, 0, 0,
-            0, scale_000, 0,
+            @scale_000, 0, 0,
+            0, @scale_000, 0,
             translate_x, translate_y, 1
         ]
         # M_001 =  @props.imm_M.toJS()
@@ -67,7 +72,8 @@ navi_context_menu = rr
                 stopColor_3: 'hsl(300, 63%, 77%)'
             fortune_000
                 M: @fortune_transform_001(0, 80)
-                text_content: 'projects'
+                click_action: @go_projects_map_000
+                text_content: 'projects_map_000'
                 stopColor_1: 'hsl(220, 65%, 77%)'
                 stopColor_2: 'hsl(225, 77%, 57%)'
                 stopColor_3: 'hsl(300, 63%, 77%)'

@@ -3,35 +3,41 @@
 
 keyMirror = require ('react/lib/keyMirror')
 
-navigation = keyMirror
+navigation_actions = keyMirror
     nav_001: null
     nav_002: null
     nav_003: null
+
+    go_projects_map_000: null
 
     ideas_map_000: null
     projects_000: null
     cancel_context: null
     open_context: null
 
-navigation_actions =
+navigation =
 
-    action_names: navigation
+    action_names: navigation_actions
+
+    go_projects_map_000: ->
+        dispatcher.dispatch
+            type: navigation_actions.go_projects_map_000
 
     open_context_menu: ->
         dispatcher.dispatch
-            type: navigation.open_context
+            type: navigation_actions.open_context
 
     cancel_context_menu: ->
         dispatcher.dispatch
-            type: navigation.cancel_context
+            type: navigation_actions.cancel_context
 
     nav_to_002: ->
         dispatcher.dispatch
-            type: navigation.nav_002
+            type: navigation_actions.nav_002
 
     nav_to_001: ->
         dispatcher.dispatch
-            type: navigation.nav_001
+            type: navigation_actions.nav_001
 
 
-module.exports = navigation_actions
+module.exports = navigation
