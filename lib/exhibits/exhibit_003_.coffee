@@ -108,47 +108,10 @@ exhibit = rr
                 y: y + (scale_y * .5)
                 width: out_side - (scale_x * 10)
                 height: out_side - (scale_y * 10)
-                p
-                    style:
-                        fontSize: fsize,
-                    "hello, and this and that and the other thing and a
-all of that javzz and looking for a word wrap and that. 
-So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside
-SVG elements is like are things we are trying to figure out here. "
-                    i null, "helloosnthausnteh"
-                    span
-                        onMouseOver: @handle_002
-                        ,
-                        " it works just fine.
-It works exceedingly well actually"
-                p
-                    style:
-                        fontSize: fsize,
-                    "Here another paragraph.
-And another going by.  And another checking margins,"
-                h3
-                    style:
-                        textAlign: 'center'
-                        fontSize: fsize,
-                    "
-And a Heading"
-        
-                p
-                    style:
-                        fontSize: fsize,
-                    "
-This is another paragraph.
-And it's not so bad for writing. 
 
-
-"
                 another()
 
 
-
-            button_000
-                transform_matrix: @button_000_transform()
-                action_fn: navigation_actions.nav_to_002
 
 
 

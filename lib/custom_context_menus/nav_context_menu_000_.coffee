@@ -62,21 +62,21 @@ navi_context_menu = rr
             fortune_000
                 M: @fortune_000_transform()
                 text_content: 'ideas'
-                stopColor_1: 'hsl(33, 65%, 77%)'
-                stopColor_2: 'hsl(125, 77%, 57%)'
-                stopColor_3: 'hsl(244, 63%, 77%)'
+                stopColor_1: 'hsl(220, 65%, 77%)'
+                stopColor_2: 'hsl(225, 77%, 57%)'
+                stopColor_3: 'hsl(300, 63%, 77%)'
             fortune_000
                 M: @fortune_transform_001(0, 80)
                 text_content: 'projects'
-                stopColor_1: 'hsl(33, 65%, 77%)'
-                stopColor_2: 'hsl(270, 77%, 57%)'
+                stopColor_1: 'hsl(220, 65%, 77%)'
+                stopColor_2: 'hsl(225, 77%, 57%)'
                 stopColor_3: 'hsl(300, 63%, 77%)'
             fortune_000
                 M: @fortune_transform_001(0, -80)
-                text_content: 'services'
+                text_content: 'fortune 000'
                 stopColor_1: 'hsl(220, 65%, 77%)'
                 stopColor_2: 'hsl(225, 77%, 57%)'
-                stopColor_3: 'hsl(360, 63%, 77%)'
+                stopColor_3: 'hsl(300, 63%, 77%)'
 
 
 module.exports = -> navi_context_menu

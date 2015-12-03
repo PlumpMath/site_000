@@ -13,10 +13,7 @@ SVGDOMPropertyConfig = require 'react/lib/SVGDOMPropertyConfig'
 DOMProperty = require 'react/lib/DOMProperty'
 MUST_USE_ATTRIBUTE = DOMProperty.injection.MUST_USE_ATTRIBUTE
 
-createFactory = if __DEV__?
-    ReactElementValidator.createFactory
-  else
-    ReactElement.createFactory
+createFactory = ReactElement.createFactory
 
 SVGDOMPropertyConfig.Properties.mask = MUST_USE_ATTRIBUTE
 SVGDOMPropertyConfig.Properties.filter = MUST_USE_ATTRIBUTE

@@ -13,6 +13,7 @@ require('./__monkey__patch__.coffee')
 
 exhibit_001 = require('./exhibits/exhibit_001_.coffee')()
 exhibit_002 = require('./exhibits/exhibit_002_.coffee')()
+exhibit_003 = require('./exhibits/exhibit_003_.coffee')()
 button_000 = require('./buttons/button_000_.coffee')()
 fortune_000 = require('./fortunes/fortune_000_.coffee')()
 
@@ -22,9 +23,12 @@ keyMirror = require ('react/lib/keyMirror')
 
 mat3 = gl_mat.mat3
 
-navigation = keyMirror
-    nav_001: null
-    nav_002: null
+# navigation = keyMirror
+#     nav_001: null
+#     nav_002: null
+#     nav_003: null
+
+locations = require('./stores/navigation_000_.coffee').navigation_locations
 
 main = rr
     # componentWillUpdate: (nextProps, nextState) ->
@@ -45,6 +49,7 @@ main = rr
 
     componentWillUnmount: ->
         window.onresize = null
+
 
     set_boundingRect: ->
         @forceUpdate()
@@ -76,9 +81,6 @@ main = rr
         #window.onresize = @set_boundingRect
         navigation_store.add_change_listener @on_nav_change_000
 
-
-
-
     componentWillUnmount: ->
         navigation_store.remove_change_listener @on_nav_change_000
     getInitialState: ->
@@ -91,7 +93,7 @@ main = rr
             context_state: navigation_store.get_context_state()
 
     nav_context_000_transform: (M)->
-        scale_000 = .8
+        scale_000 = .44
         translate_x = 0
         translate_y = 0
         in_transform_002 = [
@@ -101,19 +103,48 @@ main = rr
         ]
         mat3.multiply mat3.create(), M, in_transform_002
 
-
     render: ->
 
+        get_spare_area_transform_000 = =>
+            # so we have this wonderful black space which is nice 
+            # as black space but even nicer if occasionally make use of it
+            # usually it's going to be in the horizontal wings but it could 
+            # be in vertical depending on browser window resizing.  
+            # also it could be that if the browser window is resized square
+            # the spare area is negligible and maybe won't be able to use
+            # so we can catch that case if need be to prevent pointless use
+
+            # assuming that the spare is in the horizontal:
+            delta_000 = @state.view_width - @state.view_height
+
+            rack_number = @state.view_height / spare_side
+
+            # the floor of rack_number gives us number we can stack
+            # the remainder gives us amount of space to work with as margins
+
+            # plus we don't need to put squares in the margins they could
+            # be 16:9 or something
+
+
+            spare_M_000 = [ # this one would be on the left side right in middle
+                spare_side, 0, 0,
+                0, -spare_side, 0
+                #this part is more complex because there will be a few 
+                # slots we can translate to on either side.
+                (delta_000 / 4), (@state.view_height / 2), 1
+            ]
+
+
         M_003 = => [
-                z, 0, 0,
-                0, -z, 0,
+                square_side, 0, 0,
+                0, -square_side, 0,
                 (@state.view_width / 2), (@state.view_height / 2), 1
             ]
 
         payload = =>
             M_002 = [
-                z, 0, 0,
-                0, -z, 0,
+                square_side, 0, 0,
+                0, -square_side, 0,
                 (@state.view_width / 2), (@state.view_height / 2), 1
             ]
             M: M_002
@@ -137,8 +168,20 @@ main = rr
             div main_div(),
                 h1 null, "..."
         else
-            smaller = if @state.view_width < @state.view_height then @state.view_width else @state.view_height
-            z = smaller / 200
+            if @state.view_width < @state.view_height
+                smaller = @state.view_width
+                # spare = 'vertical'
+            else
+                smaller = @state.view_height
+                # spare = 'horizontal'
+                # so then the delta is 
+                spare_side = (((@state.view_width - @state.view_height) / 2) / 200)
+            square_side = smaller / 200
+
+            # i want to be able to use the leftover space whether it's 
+            # vertical blackspace or horizontal blackspace.
+            # also this funct may be better implemented
+
             div main_div(),
                 # context_menu_000 payload()
                 # fortune_000 payload()
@@ -149,16 +192,19 @@ main = rr
                     onWheel: @handle_scroll
                     onClick: @click_handle_000
                 ,
+                    c @state.current_location
+                    c locations.nav_001
                     switch @state.current_location
-                        when navigation.nav_001
+                        when locations.nav_001
                             exhibit_001 payload()
-                        when navigation.nav_002
+                        when locations.nav_002
                             exhibit_002 payload()
+                        when locations.nav_003
+                            exhibit_003 payload()
                     if @state.context_state
                         context_menu_000
                             M: @nav_context_000_transform(M_003())
-
-
-
+                    # context_menu_000
+                    #     M: get_spare_area_transform_000()
 
 React_DOM.render main(), imp_root

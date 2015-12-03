@@ -11,8 +11,10 @@ vec3 = gl_mat.vec3
 
 fortune = rr
     
-    handle_click: ->
-        @props.action_fn()
+    handle_click: (e)->
+        e.stopPropagation()
+        c "have a click"
+        # @props.action_fn()
         
     render: ->
         filter_000 = shortid()
@@ -30,6 +32,7 @@ fortune = rr
         svg
             width: '100%'
             height: '100%'
+            onClick: @handle_click
             defs
                 filter
                     id: filter_000

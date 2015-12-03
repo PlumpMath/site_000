@@ -3,18 +3,22 @@ keyMirror = require ('react/lib/keyMirror')
 
 navi_change_event  = 'navi_change_event'
 
-navigation = keyMirror
+navigation = require('../actions/navigation_000_.coffee').action_names
+
+# distinct from actions
+navigation_locations = keyMirror
     nav_001: null
     nav_002: null
-    cancel_context: null
-    open_context: null
+    projects_map_000: null
+
+
 
 current_location = navigation.nav_001
 context_state = off
 
-
-
 navigation_store = assign {}, EventEmitter.prototype,
+
+    navigation_locations: navigation_locations
 
     get_context_state: ->
         return context_state
@@ -57,6 +61,10 @@ navigation_store.dispatchToken = dispatcher.register (action) ->
 
         when navigation.nav_002
             navigation_store.set_current_location navigation.nav_002
+            navigation_store.emit_navi_change()
+
+        when navigation.nav_003
+            navigation_store.set_current_location navigation.nav_003
             navigation_store.emit_navi_change()
 
         else
