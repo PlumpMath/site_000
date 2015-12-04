@@ -1,7 +1,7 @@
 
 document.getElementsByTagName('body')[0].style.overflow = 'hidden'
 imp_root = document.getElementById('__react__root__')
-# imp_root.style.overflow = 'hidden'
+imp_root.style.overflow = 'hidden'
 require('./__monkey__patch__.coffee')
 {c, React, Imm, rr, shortid, assign, keys, _, React_DOM, gl_mat, Bluebird, dispatcher, EventEmitter} = require('./__boiler__plate__000__.coffee')()
 # note Todo modularise boilerplates for better organisation and 
@@ -70,13 +70,7 @@ main = rr
 
     onContextMenu: (e) ->
         e.preventDefault()
-        c "e", e
-        c e.pageX
-        # c "payload_001", @payload_001()
-        inv = @inverse_payload_000()
-        c 'inv', inv
-        vec = vec3.transformMat3 vec3.create(), [e.pageX, e.pageY, 1], inv
-        c 'vec',vec
+        vec = vec3.transformMat3 vec3.create(), [e.pageX, e.pageY, 1], @inverse_payload_000()
         @mouse_location =
             x: vec[0]
             y: vec[1]
@@ -138,7 +132,6 @@ main = rr
         scale_000 = .34
         translate_x = @mouse_location.x
         translate_y = @mouse_location.y
-        c 'translate x', translate_x
         in_transform_002 = [
             scale_000, 0, 0,
             0, scale_000, 0,
@@ -231,6 +224,7 @@ main = rr
                 svg
                     width: '100%'
                     height: '100%'
+                    display: 'block'
                     onContextMenu: @onContextMenu
                     onWheel: @handle_scroll
                     onClick: @click_handle_000
@@ -248,6 +242,9 @@ main = rr
                     if @state.context_state
                         context_menu_000
                             M: @nav_context_000_transform(M_003())
+
+
+
                     # context_menu_000
                     #     M: get_spare_area_transform_000()
 

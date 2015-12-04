@@ -57,6 +57,8 @@
 
 	imp_root = document.getElementById('__react__root__');
 
+	imp_root.style.overflow = 'hidden';
+
 	__webpack_require__(2);
 
 	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, _ = ref._, React_DOM = ref.React_DOM, gl_mat = ref.gl_mat, Bluebird = ref.Bluebird, dispatcher = ref.dispatcher, EventEmitter = ref.EventEmitter;
@@ -69,17 +71,17 @@
 
 	exhibit_001 = __webpack_require__(190)();
 
-	exhibit_002 = __webpack_require__(192)();
+	exhibit_002 = __webpack_require__(193)();
 
-	exhibit_003 = __webpack_require__(196)();
+	exhibit_003 = __webpack_require__(194)();
 
 	button_000 = __webpack_require__(191)();
 
-	fortune_000 = __webpack_require__(193)();
+	fortune_000 = __webpack_require__(195)();
 
-	projects_map_000 = __webpack_require__(197)();
+	projects_map_000 = __webpack_require__(196)();
 
-	context_menu_000 = __webpack_require__(194)();
+	context_menu_000 = __webpack_require__(197)();
 
 	keyMirror = __webpack_require__(13);
 
@@ -114,14 +116,9 @@
 	    return c("e.deltaY", e.deltaY);
 	  },
 	  onContextMenu: function(e) {
-	    var inv, vec;
+	    var vec;
 	    e.preventDefault();
-	    c("e", e);
-	    c(e.pageX);
-	    inv = this.inverse_payload_000();
-	    c('inv', inv);
-	    vec = vec3.transformMat3(vec3.create(), [e.pageX, e.pageY, 1], inv);
-	    c('vec', vec);
+	    vec = vec3.transformMat3(vec3.create(), [e.pageX, e.pageY, 1], this.inverse_payload_000());
 	    this.mouse_location = {
 	      x: vec[0],
 	      y: vec[1]
@@ -195,7 +192,6 @@
 	    scale_000 = .34;
 	    translate_x = this.mouse_location.x;
 	    translate_y = this.mouse_location.y;
-	    c('translate x', translate_x);
 	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
 	    return mat3.multiply(mat3.create(), M, in_transform_002);
 	  },
@@ -251,6 +247,7 @@
 	      return div(main_div(), svg({
 	        width: '100%',
 	        height: '100%',
+	        display: 'block',
 	        onContextMenu: this.onContextMenu,
 	        onWheel: this.handle_scroll,
 	        onClick: this.click_handle_000
@@ -47831,7 +47828,7 @@
 	  projects_map_000: null
 	});
 
-	current_location = navigation_locations.nav_001;
+	current_location = navigation_locations.projects_map_000;
 
 	context_state = false;
 
@@ -47964,7 +47961,7 @@
 
 	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
 
-	another = __webpack_require__(195);
+	another = __webpack_require__(192);
 
 	exhibit = rr({
 	  on_change_000: function() {
@@ -48159,6 +48156,30 @@
 /* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Bluebird, EventEmitter, Imm, React, _, a, assign, blake, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
+
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
+
+	blake = function(fsize) {
+	  return p({
+	    style: {
+	      fontSize: fsize
+	    },
+	    mouseOver: function() {
+	      return c('got something');
+	    }
+	  }, "testing testing one two three");
+	};
+
+	module.exports = blake;
+
+
+/***/ },
+/* 193 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
 
 	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
@@ -48277,7 +48298,112 @@
 
 
 /***/ },
-/* 193 */
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, _, a, another, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
+
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
+
+	mat3 = gl_mat.mat3;
+
+	vec3 = gl_mat.vec3;
+
+	button_000 = __webpack_require__(191)();
+
+	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
+
+	another = __webpack_require__(192);
+
+	exhibit = rr({
+	  on_change_000: function() {
+	    return c('something');
+	  },
+	  componentDidMount: function() {
+	    return navigation_store.add_change_listener(this.on_change_000);
+	  },
+	  componentWillUnmount: function() {
+	    return navigation_store.remove_change_listener(this.on_change_000);
+	  },
+	  handle_002: function() {
+	    return c('do nothing for now');
+	  },
+	  button_000_transform: function() {
+	    var M_001, in_transform_002, ret_001, scale_000, translate_x, translate_y;
+	    scale_000 = .05;
+	    translate_x = 95.0;
+	    translate_y = -95.0;
+	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
+	    M_001 = this.props.imm_M.toJS();
+	    ret_001 = mat3.multiply(mat3.create(), M_001, in_transform_002);
+	    return ret_001;
+	  },
+	  render: function() {
+	    var M_001, f_zero_x, f_zero_y, filter_000, fsize, grad_000, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, std_dev, x, y;
+	    M_001 = this.props.imm_M.toJS();
+	    scale_x = M_001[0];
+	    scale_y = M_001[4];
+	    in_origin = [-100, 100, 1];
+	    in_side = 200;
+	    out_origin = vec3.transformMat3(vec3.create(), in_origin, M_001);
+	    out_side = in_side * scale_x;
+	    f_zero_x = .5 * scale_x;
+	    f_zero_y = .5 * scale_y;
+	    std_dev = .9 * scale_x;
+	    oo = {
+	      x: out_origin[0],
+	      y: out_origin[1]
+	    };
+	    grad_000 = shortid();
+	    filter_000 = shortid();
+	    x = oo.x, y = oo.y;
+	    return svg({
+	      width: '100%',
+	      height: '100%'
+	    }, defs, filter({
+	      id: filter_000
+	    }, feGaussianBlur({
+	      "in": "SourceGraphic",
+	      result: "blurOut",
+	      stdDeviation: std_dev
+	    }), feOffset({
+	      "in": "blurOut",
+	      result: "dropBlur",
+	      dx: f_zero_x,
+	      dy: f_zero_y
+	    })), linearGradient({
+	      id: grad_000
+	    }, stop({
+	      offset: '0%',
+	      stopColor: 'hsl(33, 44%, 77%)'
+	    }), stop({
+	      offset: '92%',
+	      stopColor: 'hsl(70, 66%, 78%)'
+	    })), rect({
+	      x: x,
+	      y: y,
+	      width: out_side,
+	      height: out_side,
+	      fill: "url(#" + grad_000 + ")",
+	      filter: "url(#" + filter_000 + ")"
+	    }), fsize = scale_x * 3.0, foreignObject({
+	      x: x + (scale_x * 4.5),
+	      y: y + (scale_y * .5),
+	      width: out_side - (scale_x * 10),
+	      height: out_side - (scale_y * 10)
+	    }, another()));
+	  }
+	});
+
+	module.exports = function() {
+	  return exhibit;
+	};
+
+
+/***/ },
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, fortune, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, mat3, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec2, vec3;
@@ -48366,7 +48492,121 @@
 
 
 /***/ },
-/* 194 */
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, _, a, another, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
+
+	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
+
+	mat3 = gl_mat.mat3;
+
+	vec3 = gl_mat.vec3;
+
+	button_000 = __webpack_require__(191)();
+
+	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
+
+	another = __webpack_require__(192);
+
+	exhibit = rr({
+	  on_change_000: function() {
+	    return c('something');
+	  },
+	  componentDidMount: function() {
+	    return navigation_store.add_change_listener(this.on_change_000);
+	  },
+	  componentWillUnmount: function() {
+	    return navigation_store.remove_change_listener(this.on_change_000);
+	  },
+	  handle_002: function() {
+	    return c('do nothing for now');
+	  },
+	  button_000_transform: function() {
+	    var M_001, in_transform_002, ret_001, scale_000, translate_x, translate_y;
+	    scale_000 = .05;
+	    translate_x = 95.0;
+	    translate_y = -95.0;
+	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
+	    M_001 = this.props.imm_M.toJS();
+	    ret_001 = mat3.multiply(mat3.create(), M_001, in_transform_002);
+	    return ret_001;
+	  },
+	  render: function() {
+	    var M_001, f_zero_x, f_zero_y, filter_000, fsize, grad_000, in_origin, in_side, oo, out_origin, out_side, p_payload, scale_x, scale_y, std_dev, x, y;
+	    M_001 = this.props.imm_M.toJS();
+	    scale_x = M_001[0];
+	    scale_y = M_001[4];
+	    in_origin = [-100, 100, 1];
+	    in_side = 200;
+	    out_origin = vec3.transformMat3(vec3.create(), in_origin, M_001);
+	    out_side = in_side * scale_x;
+	    f_zero_x = .5 * scale_x;
+	    f_zero_y = .5 * scale_y;
+	    std_dev = .9 * scale_x;
+	    oo = {
+	      x: out_origin[0],
+	      y: out_origin[1]
+	    };
+	    grad_000 = shortid();
+	    filter_000 = shortid();
+	    x = oo.x, y = oo.y;
+	    p_payload = (function(_this) {
+	      return function() {
+	        return {
+	          style: {
+	            fontSize: fsize
+	          }
+	        };
+	      };
+	    })(this);
+	    return svg({
+	      width: '100%',
+	      height: '100%'
+	    }, defs, filter({
+	      id: filter_000
+	    }, feGaussianBlur({
+	      "in": "SourceGraphic",
+	      result: "blurOut",
+	      stdDeviation: std_dev
+	    }), feOffset({
+	      "in": "blurOut",
+	      result: "dropBlur",
+	      dx: f_zero_x,
+	      dy: f_zero_y
+	    })), linearGradient({
+	      id: grad_000
+	    }, stop({
+	      offset: '0%',
+	      stopColor: 'hsl(330, 44%, 77%)'
+	    }), stop({
+	      offset: '92%',
+	      stopColor: 'hsl(270, 66%, 78%)'
+	    })), rect({
+	      x: x,
+	      y: y,
+	      width: out_side,
+	      height: out_side,
+	      fill: "url(#" + grad_000 + ")",
+	      filter: "url(#" + filter_000 + ")"
+	    }), fsize = scale_x * 3.0, foreignObject({
+	      x: x + (scale_x * 4.5),
+	      y: y + (scale_y * .5),
+	      width: out_side - (scale_x * 10),
+	      height: out_side - (scale_y * 10)
+	    }, p(p_payload(), "This is another.")));
+	  }
+	});
+
+	module.exports = function() {
+	  return exhibit;
+	};
+
+
+/***/ },
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Bluebird, EventEmitter, Imm, React, _, a, assign, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, fortune_000, g, gl_mat, h1, h2, h3, h4, h5, h6, image, input, keys, li, line, linearGradient, mat3, navi_context_menu, navigation_actions, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul, vec2, vec3;
@@ -48377,7 +48617,7 @@
 
 	navigation_actions = __webpack_require__(187).navigation_actions;
 
-	fortune_000 = __webpack_require__(193)();
+	fortune_000 = __webpack_require__(195)();
 
 	mat3 = gl_mat.mat3;
 
@@ -48453,262 +48693,6 @@
 
 	module.exports = function() {
 	  return navi_context_menu;
-	};
-
-
-/***/ },
-/* 195 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Bluebird, EventEmitter, Imm, React, _, a, assign, blake, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, math, mm, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, rr, shortid, span, stop, svg, text, ul;
-
-	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
-
-	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
-
-	blake = function(fsize) {
-	  return p({
-	    style: {
-	      fontSize: fsize
-	    },
-	    mouseOver: function() {
-	      return c('got something');
-	    }
-	  }, "testing testing one two three");
-	};
-
-	module.exports = blake;
-
-
-/***/ },
-/* 196 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Bluebird, EventEmitter, Imm, React, _, a, another, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
-
-	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
-
-	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
-
-	mat3 = gl_mat.mat3;
-
-	vec3 = gl_mat.vec3;
-
-	button_000 = __webpack_require__(191)();
-
-	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
-
-	another = __webpack_require__(195);
-
-	exhibit = rr({
-	  on_change_000: function() {
-	    return c('something');
-	  },
-	  componentDidMount: function() {
-	    return navigation_store.add_change_listener(this.on_change_000);
-	  },
-	  componentWillUnmount: function() {
-	    return navigation_store.remove_change_listener(this.on_change_000);
-	  },
-	  handle_002: function() {
-	    return c('do nothing for now');
-	  },
-	  button_000_transform: function() {
-	    var M_001, in_transform_002, ret_001, scale_000, translate_x, translate_y;
-	    scale_000 = .05;
-	    translate_x = 95.0;
-	    translate_y = -95.0;
-	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
-	    M_001 = this.props.imm_M.toJS();
-	    ret_001 = mat3.multiply(mat3.create(), M_001, in_transform_002);
-	    return ret_001;
-	  },
-	  render: function() {
-	    var M_001, f_zero_x, f_zero_y, filter_000, fsize, grad_000, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, std_dev, x, y;
-	    M_001 = this.props.imm_M.toJS();
-	    scale_x = M_001[0];
-	    scale_y = M_001[4];
-	    in_origin = [-100, 100, 1];
-	    in_side = 200;
-	    out_origin = vec3.transformMat3(vec3.create(), in_origin, M_001);
-	    out_side = in_side * scale_x;
-	    f_zero_x = .5 * scale_x;
-	    f_zero_y = .5 * scale_y;
-	    std_dev = .9 * scale_x;
-	    oo = {
-	      x: out_origin[0],
-	      y: out_origin[1]
-	    };
-	    grad_000 = shortid();
-	    filter_000 = shortid();
-	    x = oo.x, y = oo.y;
-	    return svg({
-	      width: '100%',
-	      height: '100%'
-	    }, defs, filter({
-	      id: filter_000
-	    }, feGaussianBlur({
-	      "in": "SourceGraphic",
-	      result: "blurOut",
-	      stdDeviation: std_dev
-	    }), feOffset({
-	      "in": "blurOut",
-	      result: "dropBlur",
-	      dx: f_zero_x,
-	      dy: f_zero_y
-	    })), linearGradient({
-	      id: grad_000
-	    }, stop({
-	      offset: '0%',
-	      stopColor: 'hsl(33, 44%, 77%)'
-	    }), stop({
-	      offset: '92%',
-	      stopColor: 'hsl(70, 66%, 78%)'
-	    })), rect({
-	      x: x,
-	      y: y,
-	      width: out_side,
-	      height: out_side,
-	      fill: "url(#" + grad_000 + ")",
-	      filter: "url(#" + filter_000 + ")"
-	    }), fsize = scale_x * 3.0, foreignObject({
-	      x: x + (scale_x * 4.5),
-	      y: y + (scale_y * .5),
-	      width: out_side - (scale_x * 10),
-	      height: out_side - (scale_y * 10)
-	    }, another()));
-	  }
-	});
-
-	module.exports = function() {
-	  return exhibit;
-	};
-
-
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Bluebird, EventEmitter, Imm, React, _, a, another, assign, button_000, c, circle, clipPath, code, d, defs, dispatcher, div, ellipse, exhibit, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, flux, foreignObject, g, gl_mat, h1, h2, h3, h4, h5, h6, i, image, input, keys, li, line, linearGradient, mat3, math, mm, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
-
-	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, keys = ref.keys, assign = ref.assign, math = ref.math, _ = ref._, Bluebird = ref.Bluebird, gl_mat = ref.gl_mat, dispatcher = ref.dispatcher, flux = ref.flux, mm = ref.mm, EventEmitter = ref.EventEmitter;
-
-	ref1 = React.DOM, p = ref1.p, div = ref1.div, h1 = ref1.h1, h2 = ref1.h2, h3 = ref1.h3, h4 = ref1.h4, h5 = ref1.h5, h6 = ref1.h6, span = ref1.span, svg = ref1.svg, circle = ref1.circle, rect = ref1.rect, ul = ref1.ul, line = ref1.line, li = ref1.li, ol = ref1.ol, code = ref1.code, a = ref1.a, input = ref1.input, defs = ref1.defs, clipPath = ref1.clipPath, linearGradient = ref1.linearGradient, stop = ref1.stop, g = ref1.g, path = ref1.path, d = ref1.d, polygon = ref1.polygon, image = ref1.image, pattern = ref1.pattern, filter = ref1.filter, feBlend = ref1.feBlend, feOffset = ref1.feOffset, polyline = ref1.polyline, feGaussianBlur = ref1.feGaussianBlur, feMergeNode = ref1.feMergeNode, feMerge = ref1.feMerge, radialGradient = ref1.radialGradient, foreignObject = ref1.foreignObject, text = ref1.text, ellipse = ref1.ellipse, i = ref1.i;
-
-	mat3 = gl_mat.mat3;
-
-	vec3 = gl_mat.vec3;
-
-	button_000 = __webpack_require__(191)();
-
-	ref2 = __webpack_require__(187), navigation_actions = ref2.navigation_actions, navigation_store = ref2.navigation_store;
-
-	another = __webpack_require__(195);
-
-	exhibit = rr({
-	  on_change_000: function() {
-	    return c('something');
-	  },
-	  componentDidMount: function() {
-	    return navigation_store.add_change_listener(this.on_change_000);
-	  },
-	  componentWillUnmount: function() {
-	    return navigation_store.remove_change_listener(this.on_change_000);
-	  },
-	  handle_002: function() {
-	    return c('do nothing for now');
-	  },
-	  button_000_transform: function() {
-	    var M_001, in_transform_002, ret_001, scale_000, translate_x, translate_y;
-	    scale_000 = .05;
-	    translate_x = 95.0;
-	    translate_y = -95.0;
-	    in_transform_002 = [scale_000, 0, 0, 0, scale_000, 0, translate_x, translate_y, 1];
-	    M_001 = this.props.imm_M.toJS();
-	    ret_001 = mat3.multiply(mat3.create(), M_001, in_transform_002);
-	    return ret_001;
-	  },
-	  render: function() {
-	    var M_001, f_zero_x, f_zero_y, filter_000, fsize, grad_000, in_origin, in_side, oo, out_origin, out_side, scale_x, scale_y, std_dev, x, y;
-	    M_001 = this.props.imm_M.toJS();
-	    scale_x = M_001[0];
-	    scale_y = M_001[4];
-	    in_origin = [-100, 100, 1];
-	    in_side = 200;
-	    out_origin = vec3.transformMat3(vec3.create(), in_origin, M_001);
-	    out_side = in_side * scale_x;
-	    f_zero_x = .5 * scale_x;
-	    f_zero_y = .5 * scale_y;
-	    std_dev = .9 * scale_x;
-	    oo = {
-	      x: out_origin[0],
-	      y: out_origin[1]
-	    };
-	    grad_000 = shortid();
-	    filter_000 = shortid();
-	    x = oo.x, y = oo.y;
-	    return svg({
-	      width: '100%',
-	      height: '100%'
-	    }, defs, filter({
-	      id: filter_000
-	    }, feGaussianBlur({
-	      "in": "SourceGraphic",
-	      result: "blurOut",
-	      stdDeviation: std_dev
-	    }), feOffset({
-	      "in": "blurOut",
-	      result: "dropBlur",
-	      dx: f_zero_x,
-	      dy: f_zero_y
-	    })), linearGradient({
-	      id: grad_000
-	    }, stop({
-	      offset: '0%',
-	      stopColor: 'hsl(330, 44%, 77%)'
-	    }), stop({
-	      offset: '92%',
-	      stopColor: 'hsl(270, 66%, 78%)'
-	    })), rect({
-	      x: x,
-	      y: y,
-	      width: out_side,
-	      height: out_side,
-	      fill: "url(#" + grad_000 + ")",
-	      filter: "url(#" + filter_000 + ")"
-	    }), fsize = scale_x * 3.0, foreignObject({
-	      x: x + (scale_x * 4.5),
-	      y: y + (scale_y * .5),
-	      width: out_side - (scale_x * 10),
-	      height: out_side - (scale_y * 10)
-	    }, p({
-	      style: {
-	        fontSize: fsize
-	      }
-	    }, "hello, and this and that and the other thing and a all of that javzz and looking for a word wrap and that. So how much of a word wrap can we expect and how effectively will SVG handle html elements for the purposes of typesetting inside SVG elements is like are things we are trying to figure out here. ", i(null, "helloosnthausnteh"), span({
-	      onMouseOver: this.handle_002
-	    }, " it works just fine. It works exceedingly well actually")), p({
-	      style: {
-	        fontSize: fsize
-	      }
-	    }, "Here another paragraph. And another going by.  And another checking margins,"), h3({
-	      style: {
-	        textAlign: 'center',
-	        fontSize: fsize
-	      }
-	    }, "And a Heading"), p({
-	      style: {
-	        fontSize: fsize
-	      }
-	    }, "This is another paragraph. And it's not so bad for writing."), another()), button_000({
-	      transform_matrix: this.button_000_transform(),
-	      action_fn: navigation_actions.nav_to_002
-	    }));
-	  }
-	});
-
-	module.exports = function() {
-	  return exhibit;
 	};
 
 

@@ -13,7 +13,7 @@ navigation_locations = keyMirror
 
 
 
-current_location = navigation_locations.nav_001
+current_location = navigation_locations.projects_map_000
 context_state = off
 
 navigation_store = assign {}, EventEmitter.prototype,
