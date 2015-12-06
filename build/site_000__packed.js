@@ -51,7 +51,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, context_menu_000, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, exhibit_003, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, fortune_000, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keyMirror, keys, li, line, linearGradient, locations, main, mat3, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, projects_map_000, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, a, assign, button_000, c, circle, clipPath, code, context_menu_000, d, defs, dispatcher, div, ellipse, exhibit_001, exhibit_002, exhibit_003, feBlend, feGaussianBlur, feMerge, feMergeNode, feOffset, filter, foreignObject, fortune_000, g, gl_mat, h1, h2, h3, h4, h5, h6, image, imp_root, input, keyMirror, keyboard_navigation, keys, li, line, linearGradient, locations, main, mat3, navigation_actions, navigation_store, ol, p, path, pattern, polygon, polyline, projects_map_000, radialGradient, rect, ref, ref1, ref2, rr, shortid, span, stop, svg, text, ul, vec3;
 
 	document.getElementsByTagName('body')[0].style.overflow = 'hidden';
 
@@ -84,6 +84,8 @@
 	context_menu_000 = __webpack_require__(197)();
 
 	keyMirror = __webpack_require__(13);
+
+	keyboard_navigation = __webpack_require__(198);
 
 	mat3 = gl_mat.mat3;
 
@@ -170,7 +172,8 @@
 	  componentDidMount: function() {
 	    this.set_boundingRect();
 	    window.onresize = this.debounced_set_boundingRect;
-	    return navigation_store.add_change_listener(this.on_nav_change_000);
+	    navigation_store.add_change_listener(this.on_nav_change_000);
+	    return keyboard_navigation();
 	  },
 	  componentWillUnmount: function() {
 	    return navigation_store.remove_change_listener(this.on_nav_change_000);
@@ -48694,6 +48697,41 @@
 	module.exports = function() {
 	  return navi_context_menu;
 	};
+
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Bluebird, EventEmitter, Imm, React, React_DOM, _, assign, c, dispatcher, gl_mat, keyboard_navigation_listeners, keys, navigation_actions, navigation_store, ref, ref1, rr, shortid;
+
+	ref = __webpack_require__(20)(), c = ref.c, React = ref.React, Imm = ref.Imm, rr = ref.rr, shortid = ref.shortid, assign = ref.assign, keys = ref.keys, _ = ref._, React_DOM = ref.React_DOM, gl_mat = ref.gl_mat, Bluebird = ref.Bluebird, dispatcher = ref.dispatcher, EventEmitter = ref.EventEmitter;
+
+	ref1 = __webpack_require__(187), navigation_store = ref1.navigation_store, navigation_actions = ref1.navigation_actions;
+
+	keyboard_navigation_listeners = function() {
+	  return window.addEventListener('keypress', function(e) {
+	    c('e', e);
+	    switch (e.key) {
+	      case 'ArrowDown':
+	      case 'PageDown':
+	        e.preventDefault();
+	        return c("got a keypress", e.key);
+	      case " ":
+	        e.preventDefault();
+	        return c("got a spacebar");
+	      case "End":
+	        e.preventDefault();
+	        return c("got End");
+	      case "Escape":
+	        return c("got escape key");
+	      default:
+	        return c("got a keypress", e.key);
+	    }
+	  });
+	};
+
+	module.exports = keyboard_navigation_listeners;
 
 
 /***/ }

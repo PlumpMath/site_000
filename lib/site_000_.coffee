@@ -25,6 +25,8 @@ context_menu_000 = require('./custom_context_menus/nav_context_menu_000_.coffee'
 
 keyMirror = require ('react/lib/keyMirror')
 
+keyboard_navigation = require './keyboard_navigation/keyboard_navigation_000_.coffee'
+
 mat3 = gl_mat.mat3
 vec3 = gl_mat.vec3
 
@@ -116,6 +118,10 @@ main = rr
         window.onresize = @debounced_set_boundingRect
         #window.onresize = @set_boundingRect
         navigation_store.add_change_listener @on_nav_change_000
+
+        keyboard_navigation()
+
+
 
     componentWillUnmount: ->
         navigation_store.remove_change_listener @on_nav_change_000
@@ -225,6 +231,7 @@ main = rr
                     width: '100%'
                     height: '100%'
                     display: 'block'
+                    # marginBottom: '-5px'
                     onContextMenu: @onContextMenu
                     onWheel: @handle_scroll
                     onClick: @click_handle_000
