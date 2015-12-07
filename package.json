@@ -1,6 +1,23 @@
 {
     "dependencies": {
         "react-dom": "0.14.0-beta1",
-        "react": "0.14.0-beta1"
+        "react": "0.14.0-beta1",
+        "gl-matrix": "latest",
+        "bluebird": "latest",
+        "mathjs": "latest",
+        "flux": "latest",
+        "webpack-glsl-loader": "latest",
+        "ioredis": "latest",
+        "hiredis": "latest",
+        "worker-loader": "latest",
+        "shortid": "latest",
+        "immutable": "latest",
+        "webpack": "latest",
+        "lodash": "latest",
+        "css-loader": "latest",
+        "coffee-loader": "latest",
+        "stylus-loader": "latest",
+        "coffee-script": "latest",
+        "source-map-loader": "latest"
     }
 }

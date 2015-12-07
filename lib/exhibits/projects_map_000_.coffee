@@ -1,6 +1,6 @@
 {c, React, Imm, rr, shortid, keys, assign, math, _, Bluebird, gl_mat, dispatcher, flux, mm, EventEmitter} = require('../__boiler__plate__000__.coffee')()
 
-{p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse, i} = React.DOM
+{p, div, h1, h2, h3, h4, h5, h6, span, svg, circle, rect, ul, line, li, ol, code, a, input, defs, clipPath, linearGradient, stop, g, path, d, polygon, image, pattern, filter, feBlend, feOffset, polyline, feGaussianBlur, feMergeNode, feMerge, radialGradient, foreignObject, text, ellipse, i, body} = React.DOM
 
 mat3 = gl_mat.mat3
 vec3 = gl_mat.vec3
@@ -106,18 +106,19 @@ exhibit = rr
                 filter: "url(##{filter_000})"
                 # filter: 'url(#f_zero)'
             fsize = scale_x * 3.0
-            foreignObject
-                
-                x: x + (scale_x * 4.5)
-                y: y + (scale_y * .5)
-                width: out_side - (scale_x * 10)
-                height: out_side - (scale_y * 10)
-                p p_payload(),
-                    "
+                foreignObject
+                    
+                    x: x + (scale_x * 4.5)
+                    y: y + (scale_y * .5)
+                    width: out_side - (scale_x * 10)
+                    height: out_side - (scale_y * 10)
+                    body null,
+                        p p_payload(),
+                            "
 
-This is another. 
+        This is another. 
 
-"
+        "
 
 
 
