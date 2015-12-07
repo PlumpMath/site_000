@@ -8,6 +8,18 @@ Dependencies are in a parent folder, which also contains stuff --like database t
 
 Here as a Gist [package.json](https://gist.github.com/kulicuu/f47ab8ec7f9f1933ee9b)
 
+______________________
+
+#### status notes:
+
+This site runs only in Firefox because Chromium has a bug in their SVG rendering compounding with React's confused semi-support of SVG.
+
+http://stackoverflow.com/questions/34131753/chromium-discarding-unexpected-node-not-rendering-svg-foreignobject-html
+
+https://github.com/facebook/react/issues/1657
+
+I've made the dependencies explicit in a package.json file. Locally I'd always gotten the dependencies from an ancestor folder's node-modules.
+
 ________________________________
 
 ### A note on the ~~architectural style~~ design pattern used:
